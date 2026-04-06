@@ -280,7 +280,7 @@ input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
 // ══════════════════════════════════════════
 // ⚙️  ĐỔI URL NÀY SAU KHI DEPLOY APPS SCRIPT
 // ══════════════════════════════════════════
-const API_URL = 'https://script.google.com/macros/s/AKfycbxwRvnOhl1cNqjeHsGpD-adGtHynzsSTKrbur5dwo-yscp-dFZLDxVceI1eIIzAtbRxDQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwDYx4_KyYw7G7O2t5sLWngYyygJtzdHlbnYxLSeME7bEgndHNrzbjFzC3LITceHSfiHg/exec';
 
 // ══════════════════════════════════════════
 let D = null, CH = {};
