@@ -3,160 +3,250 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hội Khóa QH 2003–2006</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Hội Khóa QH 2003–2006 · Hẹn Nhau Ngày Về</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-/* ─── CONFIG: đổi API_URL ở script bên dưới sau khi deploy Apps Script ─── */
-:root{
-  --bg:#F7F3EE;--surface:#FFFFFF;--border:#EAE3D8;
-  --t1:#1C1510;--t2:#6B5E52;--t3:#A8998A;
-  --accent:#8B4513;--accent2:#C8702A;
-  --gold:#C9A84C;--ok:#27AE60;--warn:#E67E22;--info:#2980B9;
-  --r-md:14px;--r-lg:20px;--r-xl:28px;
-  --sh-sm:0 1px 3px rgba(0,0,0,.06);--sh-md:0 4px 16px rgba(0,0,0,.08);
+/* ─── TOKENS ─── */
+:root {
+  --cream:   #FAF5EC;
+  --cream2:  #F3EBD8;
+  --paper:   #EDE0C8;
+  --red:     #8B1A1A;
+  --red2:    #A52020;
+  --brown:   #5C2E0A;
+  --gold:    #C9A84C;
+  --gold2:   #E8C96A;
+  --border:  #D9C9A8;
+  --t1:      #2A1A08;
+  --t2:      #6B5030;
+  --t3:      #A8916A;
+  --ok:      #2E7D32;
+  --okbg:    #E8F5E9;
+  --warn:    #BF6A00;
+  --warnbg:  #FFF8E1;
+  --info:    #1565C0;
+  --infobg:  #E3F2FD;
+  --purple:  #6A1B9A;
+  --purplebg:#F3E5F5;
+  --r:       14px;
+  --r-lg:    20px;
+  --r-xl:    28px;
+  --sh:      0 2px 12px rgba(92,46,10,.08);
+  --sh-lg:   0 6px 28px rgba(92,46,10,.13);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;line-height:1.5;min-height:100vh}
-.app{max-width:1000px;margin:0 auto;padding:16px}
+* { box-sizing:border-box; margin:0; padding:0 }
+body { font-family:'Be Vietnam Pro',sans-serif; background:var(--cream); color:var(--t1); font-size:14px; line-height:1.5 }
+.app { max-width:1020px; margin:0 auto; padding:16px }
 
-/* TOPBAR */
-.topbar{background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:var(--r-xl);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;box-shadow:var(--sh-md)}
-.tb-t{font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;color:#fff}
-.tb-s{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
-.tb-r{display:flex;align-items:center;gap:8px}
-.btn-r{font-size:12px;font-weight:700;padding:7px 14px;border-radius:10px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;font-family:'Nunito',sans-serif}
-.btn-r:hover{background:rgba(255,255,255,.25)}
-.sync{font-size:11px;color:rgba(255,255,255,.55)}
+/* ─── TOPBAR ─── */
+.topbar {
+  background: linear-gradient(135deg, var(--red) 0%, #A52020 50%, #7A1010 100%);
+  border-radius: var(--r-xl); padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:13px; box-shadow:var(--sh-lg); position:relative; overflow:hidden;
+}
+.topbar::before {
+  content:''; position:absolute; top:-60px; right:-40px;
+  width:200px; height:200px; border-radius:50%;
+  background: rgba(201,168,76,.12);
+}
+.tb-brand { display:flex; align-items:center; gap:12px }
+.tb-seal {
+  width:44px; height:44px; border-radius:50%;
+  border:2px solid rgba(201,168,76,.5);
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(201,168,76,.1); flex-shrink:0;
+}
+.tb-seal span { font-size:18px }
+.tb-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; color:#fff; letter-spacing:-.2px }
+.tb-sub { font-size:11px; color:rgba(255,255,255,.65); margin-top:1px }
+.tb-r { display:flex; align-items:center; gap:8px; flex-shrink:0 }
+.btn-r {
+  font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:700;
+  padding:7px 14px; border-radius:10px; cursor:pointer;
+  background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); color:#fff;
+  transition:background .15s;
+}
+.btn-r:hover { background:rgba(255,255,255,.24) }
+#sync { font-size:11px; color:rgba(255,255,255,.5) }
 
-/* COUNTDOWN */
-.cdh{background:linear-gradient(160deg,#FDF6EC,#FAF0E0,#F5E8D0);border:1.5px solid #DEC898;border-radius:var(--r-xl);padding:26px 28px;text-align:center;margin-bottom:14px;box-shadow:0 4px 20px rgba(139,26,26,.08)}
-.cd-lbl{font-size:9.5px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:#8B1A1A;margin-bottom:14px;opacity:.7}
-.cd-line{height:2px;width:160px;margin:0 auto 16px;background:linear-gradient(90deg,transparent,#C9A84C,transparent)}
-.cd-row{display:flex;align-items:stretch;justify-content:center;gap:10px;margin-bottom:16px}
-.cd-u{text-align:center;background:#fff;border:1.5px solid #E2C898;border-radius:14px;padding:14px 22px 10px;min-width:100px;box-shadow:0 2px 8px rgba(139,26,26,.06)}
-.cd-n{font-family:'Nunito',sans-serif;font-size:70px;font-weight:900;color:#8B1A1A;line-height:1;display:block;letter-spacing:-2px}
-.cd-sm{font-size:50px;min-width:80px;letter-spacing:-1px}
-.cd-sep{font-family:'Nunito',sans-serif;font-size:44px;font-weight:900;color:#C9A84C;align-self:center;margin-bottom:10px}
-.cd-s{font-size:9.5px;font-weight:700;margin-top:7px;letter-spacing:2px;text-transform:uppercase;color:#B8926A;display:block}
-.cd-bot{height:1px;width:240px;margin:0 auto 14px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.4),transparent)}
-.cd-ev{font-family:'Nunito',sans-serif;font-size:13px;color:#5C3A1E;font-weight:700}
-.cd-ev strong{color:#8B1A1A}
+/* ─── COUNTDOWN ─── */
+.cdh {
+  background: linear-gradient(160deg, #FDF8F0 0%, #FAF1E0 55%, #F5E8CC 100%);
+  border:1.5px solid var(--border); border-radius:var(--r-xl);
+  padding:28px 32px; text-align:center; margin-bottom:13px;
+  box-shadow: 0 3px 20px rgba(139,26,26,.09);
+  position:relative; overflow:hidden;
+}
+.cdh::before, .cdh::after {
+  content:''; position:absolute; border-radius:50%; pointer-events:none;
+}
+.cdh::before { top:-80px; left:-60px; width:260px; height:260px; background:radial-gradient(circle, rgba(201,168,76,.08), transparent 70%) }
+.cdh::after  { bottom:-80px; right:-50px; width:220px; height:220px; background:radial-gradient(circle, rgba(139,26,26,.06), transparent 70%) }
+.cd-eyebrow {
+  font-size:9.5px; font-weight:800; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:16px; opacity:.8;
+}
+.cd-rule { height:2px; width:140px; margin:0 auto 18px; background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent) }
+.cd-row { display:flex; align-items:stretch; justify-content:center; gap:10px; margin-bottom:18px }
+.cd-unit {
+  text-align:center; background:#fff;
+  border:1.5px solid var(--border); border-radius:16px;
+  padding:16px 24px 12px; min-width:108px;
+  box-shadow: 0 2px 10px rgba(139,26,26,.06), inset 0 1px 0 rgba(255,255,255,.9);
+  position:relative; overflow:hidden;
+}
+.cd-unit::before {
+  content:''; position:absolute; top:0; left:10%; right:10%; height:2px;
+  background:linear-gradient(90deg, transparent, rgba(201,168,76,.4), transparent);
+}
+.cd-n {
+  font-family:'Playfair Display',serif; font-size:72px; font-weight:900;
+  color:var(--red); line-height:1; display:block;
+  text-shadow: 0 2px 0 rgba(139,26,26,.1); letter-spacing:-2px;
+}
+.cd-sm { font-size:52px; min-width:80px; letter-spacing:-1px }
+.cd-sep { font-family:'Playfair Display',serif; font-size:48px; font-weight:900; color:var(--gold); align-self:center; margin-bottom:12px; opacity:.7 }
+.cd-s { font-size:9.5px; font-weight:700; margin-top:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--t3); display:block }
+.cd-rule2 { height:1px; width:240px; margin:0 auto 14px; background:linear-gradient(90deg,transparent,rgba(201,168,76,.3) 30%,rgba(201,168,76,.3) 70%,transparent) }
+.cd-ev { font-family:'Be Vietnam Pro',sans-serif; font-size:13px; color:var(--brown); font-weight:700 }
+.cd-ev strong { color:var(--red) }
 
-/* KPI */
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--sh-sm);transition:.2s;position:relative;overflow:hidden}
-.kpi:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
-.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.kb::after{background:var(--info)}.kg::after{background:var(--ok)}.ko::after{background:var(--gold)}.kp::after{background:#8B5CF6}
-.kpi-i{font-size:18px;margin-bottom:8px}
-.kl{font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.kv{font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;margin:4px 0 2px;line-height:1}
-.ks{font-size:11px;color:var(--t3)}
-.kbar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
-.kbf{height:100%;border-radius:2px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+/* ─── KPI ─── */
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:13px }
+.kpi {
+  background:#fff; border:1px solid var(--border); border-radius:var(--r);
+  padding:14px 16px; box-shadow:var(--sh); transition:transform .18s, box-shadow .18s;
+  position:relative; overflow:hidden;
+}
+.kpi:hover { transform:translateY(-2px); box-shadow:var(--sh-lg) }
+.kpi::after { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:var(--r) var(--r) 0 0 }
+.ki::after{background:var(--info)} .kg::after{background:var(--ok)} .ko::after{background:var(--gold)} .kp::after{background:var(--purple)}
+.kpi-ic { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-bottom:9px }
+.ki .kpi-ic{background:var(--infobg)} .kg .kpi-ic{background:var(--okbg)} .ko .kpi-ic{background:#FEF9E7} .kp .kpi-ic{background:var(--purplebg)}
+.kl { font-size:10px; color:var(--t3); font-weight:700; text-transform:uppercase; letter-spacing:.5px }
+.kv { font-family:'Playfair Display',serif; font-size:30px; font-weight:900; color:var(--t1); margin:4px 0 2px; line-height:1 }
+.ks { font-size:11px; color:var(--t3) }
+.kbar { height:4px; background:var(--cream2); border-radius:2px; margin-top:9px; overflow:hidden }
+.kbf { height:100%; border-radius:2px; transition:width .8s cubic-bezier(.4,0,.2,1) }
 
-/* TABS */
-.tnav{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:5px;margin-bottom:14px;box-shadow:var(--sh-sm)}
-.tab{flex:1;text-align:center;font-size:12px;font-weight:700;padding:9px 4px;border-radius:var(--r-md);cursor:pointer;color:var(--t2);transition:.15s;font-family:'Nunito',sans-serif;white-space:nowrap}
-.tab.on{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(139,69,19,.3)}
-.tab:hover:not(.on){background:var(--bg);color:var(--t1)}
-.panel{display:none}.panel.on{display:block}
+/* ─── TABS ─── */
+.tnav {
+  display:flex; gap:4px; background:#fff; border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:4px; margin-bottom:13px; box-shadow:var(--sh);
+}
+.tab {
+  flex:1; text-align:center; font-size:12px; font-weight:700;
+  padding:9px 4px; border-radius:12px; cursor:pointer;
+  color:var(--t2); transition:.15s; white-space:nowrap;
+}
+.tab.on { background:var(--red); color:#fff; box-shadow:0 2px 8px rgba(139,26,26,.25) }
+.tab:hover:not(.on) { background:var(--cream); color:var(--t1) }
+.panel { display:none } .panel.on { display:block }
 
-/* CARDS */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh-sm)}
-.cht{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--t1);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.hint{font-size:11px;font-weight:400;color:var(--t3);font-family:'Inter',sans-serif}
-.full{margin-bottom:12px}
+/* ─── CARDS ─── */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:11px }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:11px; margin-bottom:11px }
+.card { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:16px 18px; box-shadow:var(--sh) }
+.full { margin-bottom:11px }
+.cht {
+  font-size:13px; font-weight:800; color:var(--t1); margin-bottom:12px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.hint { font-size:11px; font-weight:400; color:var(--t3) }
 
-/* TABLE */
-.tbl{width:100%;border-collapse:collapse}
-.tbl th{font-size:10px;color:var(--t3);text-align:left;padding:0 9px 9px;border-bottom:2px solid var(--border);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-.tbl td{padding:8px 9px;border-bottom:1px solid var(--bg);font-size:12px;vertical-align:middle}
-.tbl tr:last-child td{border-bottom:none}
-.tbl tr:hover td{background:var(--bg)}
-.lnm{font-family:'Nunito',sans-serif;font-weight:900;color:var(--accent);font-size:13px}
-.bw{height:7px;background:var(--bg);border-radius:4px;overflow:hidden;min-width:80px}
-.bf{height:100%;border-radius:4px;transition:width .5s}
-.ng{color:var(--ok);font-weight:700}.nw{color:var(--warn);font-weight:700}.nm{color:var(--t3)}
-.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
-.tok{background:#EAFAF1;color:#1E8449}.twn{background:#FEF9E7;color:#B7770D}.tmt{background:var(--bg);color:var(--t3)}
+/* ─── TABLE ─── */
+.tbl { width:100%; border-collapse:collapse }
+.tbl th { font-size:10px; color:var(--t3); text-align:left; padding:0 9px 9px; border-bottom:2px solid var(--cream2); font-weight:700; text-transform:uppercase; letter-spacing:.4px }
+.tbl td { padding:8px 9px; border-bottom:1px solid var(--cream); font-size:12.5px; vertical-align:middle }
+.tbl tr:last-child td { border-bottom:none }
+.tbl tr:hover td { background:var(--cream) }
+.lnm { font-weight:800; color:var(--red); font-size:13px }
+.bw { height:7px; background:var(--cream2); border-radius:4px; overflow:hidden; min-width:80px }
+.bf { height:100%; border-radius:4px; transition:width .5s }
+.gok { color:var(--ok); font-weight:700 } .gw { color:var(--warn); font-weight:700 } .gm { color:var(--t3) }
+.tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 9px; border-radius:20px }
+.tok { background:var(--okbg); color:var(--ok) } .twn { background:var(--warnbg); color:var(--warn) } .tmt { background:var(--cream2); color:var(--t3) }
 
-/* MINI STATS */
-.mg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.mini{background:var(--bg);border-radius:var(--r-md);padding:11px 13px}
-.ml{font-size:10px;color:var(--t3);font-weight:600;text-transform:uppercase;letter-spacing:.3px}
-.mv{font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;margin-top:3px}
+/* ─── MINI STATS ─── */
+.mg { display:grid; grid-template-columns:1fr 1fr; gap:7px }
+.mini { background:var(--cream); border-radius:10px; padding:11px 13px }
+.ml { font-size:10px; color:var(--t3); font-weight:700; text-transform:uppercase; letter-spacing:.3px }
+.mv { font-family:'Playfair Display',serif; font-size:24px; font-weight:900; margin-top:3px }
 
-/* FORM */
-.ftbl{width:100%;border-collapse:collapse}
-.ftbl th{font-size:10px;color:var(--t3);text-align:left;padding:0 7px 8px;border-bottom:2px solid var(--border);font-weight:600;text-transform:uppercase}
-.ftbl td{padding:5px 5px;border-bottom:1px solid var(--bg);vertical-align:middle}
-.ftbl tr:last-child td{border-bottom:none}
-.llbl{font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;color:var(--accent);padding-left:8px!important}
-input[type=number]{width:62px;padding:5px 7px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;text-align:center;font-weight:800;background:var(--bg);color:var(--t1);font-family:'Nunito',sans-serif}
-input[type=number]:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(139,69,19,.1)}
-input[type=text]{width:100%;padding:5px 9px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;background:var(--bg);color:var(--t1)}
-input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
-.sbar{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-.smsg{font-size:12px;color:var(--ok);font-weight:700;display:none}
-.btn{font-size:12px;font-family:'Nunito',sans-serif;font-weight:800;padding:8px 16px;border-radius:9px;cursor:pointer;border:none;transition:.15s}
-.bpri{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(139,69,19,.25)}
-.bpri:hover{background:var(--accent2);transform:translateY(-1px)}
-.bpri:disabled{opacity:.6;cursor:not-allowed;transform:none}
+/* ─── FORM ─── */
+.ftbl { width:100%; border-collapse:collapse }
+.ftbl th { font-size:10px; color:var(--t3); text-align:left; padding:0 7px 9px; border-bottom:2px solid var(--cream2); font-weight:700; text-transform:uppercase }
+.ftbl td { padding:4px 5px; border-bottom:1px solid var(--cream); vertical-align:middle }
+.llbl { font-size:12px; font-weight:800; color:var(--red); padding-left:8px !important }
+input[type=number] { width:62px; padding:5px 7px; border:1.5px solid var(--border); border-radius:7px; font-size:13px; text-align:center; font-weight:800; background:var(--cream); color:var(--t1); font-family:'Be Vietnam Pro',sans-serif; transition:.15s }
+input[type=number]:focus { outline:none; border-color:var(--red); background:#fff; box-shadow:0 0 0 3px rgba(139,26,26,.1) }
+input[type=text] { width:100%; padding:5px 9px; border:1.5px solid var(--border); border-radius:7px; font-size:12px; background:var(--cream); color:var(--t1); transition:.15s }
+input[type=text]:focus { outline:none; border-color:var(--red); background:#fff }
+.sbar { display:flex; align-items:center; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border) }
+.smsg { font-size:12px; color:var(--ok); font-weight:700; display:none }
+.btn { font-family:'Be Vietnam Pro',sans-serif; font-size:12px; font-weight:800; padding:8px 16px; border-radius:9px; cursor:pointer; border:none; transition:.15s }
+.bpri { background:var(--red); color:#fff; box-shadow:0 2px 8px rgba(139,26,26,.22) }
+.bpri:hover { background:var(--red2); transform:translateY(-1px) }
 
-/* SPONSOR */
-.spr{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bg)}
-.spr:last-child{border-bottom:none}
-.spb{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
-.spn{font-size:13px;font-weight:600;color:var(--t1);flex:1}
-.spa{font-size:13px;font-weight:900;font-family:'Nunito',sans-serif;text-align:right}
+/* ─── SPONSOR ─── */
+.spr { display:flex; align-items:center; gap:9px; padding:9px 0; border-bottom:1px solid var(--cream) }
+.spr:last-child { border-bottom:none }
+.spb { font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px; white-space:nowrap; flex-shrink:0 }
+.spn { font-size:13px; font-weight:600; flex:1 }
+.spa { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; text-align:right }
+.spc { font-size:11px; color:var(--t3) }
 
-/* TASK */
-.tr2{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--bg)}
-.tr2:last-child{border-bottom:none}
-.ck{width:17px;height:17px;border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
-.ckd{background:#EAFAF1;color:#1E8449}.ckg{background:#EBF5FB;color:#1A6FA6}.ckt{background:var(--bg);border:1.5px solid var(--border)}
-.tnm{font-size:12px;color:var(--t1);line-height:1.4}
-.tmt2{font-size:11px;color:var(--t3);margin-top:1px}
-.bdg{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:5px;vertical-align:middle}
-.bdd{background:#EAFAF1;color:#1E8449}.bdg2{background:#EBF5FB;color:#1A6FA6}.bdt{background:var(--bg);color:var(--t3)}
+/* ─── TASKS ─── */
+.tr2 { display:flex; gap:9px; padding:7px 0; border-bottom:1px solid var(--cream) }
+.tr2:last-child { border-bottom:none }
+.ck { width:17px; height:17px; border-radius:5px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800 }
+.ckd{background:var(--okbg);color:var(--ok)} .ckg{background:var(--infobg);color:var(--info)} .ckt{background:var(--cream);border:1.5px solid var(--border)}
+.tnm { font-size:12px; line-height:1.4; font-weight:500 }
+.tmt2 { font-size:11px; color:var(--t3); margin-top:1px }
+.bdg { font-size:10px; font-weight:700; padding:1px 7px; border-radius:10px; margin-left:5px; vertical-align:middle; display:inline-block }
+.bdd{background:var(--okbg);color:var(--ok)} .bdg2{background:var(--infobg);color:var(--info)} .bdt{background:var(--cream2);color:var(--t3)}
 
-/* BAN PROGRESS */
-.bp{margin-bottom:14px}.bp:last-child{margin:0}
-.bph{display:flex;justify-content:space-between;margin-bottom:5px}
-.bpn{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--t1)}
-.bps{font-size:11px;color:var(--t3)}
-.bpt{height:9px;background:var(--bg);border-radius:5px;overflow:hidden}
-.bpf{height:100%;border-radius:5px;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.bpsub{font-size:11px;color:var(--t3);margin-top:3px}
+/* ─── BAN PROGRESS ─── */
+.bp { margin-bottom:14px }
+.bp:last-child { margin:0 }
+.bph { display:flex; justify-content:space-between; margin-bottom:5px }
+.bpn { font-size:13px; font-weight:800 }
+.bps { font-size:11px; color:var(--t3) }
+.bpt { height:9px; background:var(--cream2); border-radius:5px; overflow:hidden }
+.bpf { height:100%; border-radius:5px; transition:width .8s cubic-bezier(.4,0,.2,1) }
+.bpsub { font-size:11px; color:var(--t3); margin-top:3px }
 
-/* FIN */
-.fr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bg)}
-.fr:last-child{border-bottom:none}
-.fl{font-size:12px;color:var(--t2)}
-.fv{font-size:13px;font-weight:800;font-family:'Nunito',sans-serif}
-.ftot{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-top:8px;background:var(--bg);border-radius:var(--r-md)}
+/* ─── FIN ─── */
+.fr { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid var(--cream) }
+.fr:last-child { border-bottom:none }
+.fl { font-size:12px; color:var(--t2) }
+.fv { font-size:13px; font-weight:800 }
+.ftot { display:flex; justify-content:space-between; align-items:center; padding:11px 15px; margin-top:9px; background:var(--cream); border-radius:10px }
 
-/* CHART */
-.cw{position:relative;height:180px}
-.cwl{position:relative;height:220px}
-.leg{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)}
-.ld{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+/* ─── CHARTS ─── */
+.cw { position:relative; height:180px }
+.cwl { position:relative; height:220px }
+.leg { display:flex; flex-wrap:wrap; gap:9px; margin-top:11px }
+.li { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--t2); font-weight:500 }
+.ld { width:10px; height:10px; border-radius:3px; flex-shrink:0 }
 
-/* MISC */
-.loading{text-align:center;padding:28px;color:var(--t3);font-size:13px}
-.empty{text-align:center;padding:22px;color:var(--t3);font-size:12px;border:1.5px dashed var(--border);border-radius:var(--r-md)}
-#err{display:none;background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:12px 16px;margin-bottom:12px;font-size:12px;color:#991B1B;font-weight:600;line-height:1.7}
+/* ─── UTILS ─── */
+.loading { text-align:center; padding:28px; color:var(--t3); font-size:13px }
+.empty { text-align:center; padding:22px; color:var(--t3); font-size:12px; border:1.5px dashed var(--border); border-radius:10px }
+#err { display:none; background:#FEF2F2; border:1.5px solid #FCA5A5; border-radius:12px; padding:12px 16px; margin-bottom:12px; font-size:12px; color:#991B1B; font-weight:600; word-break:break-all }
+.col-ok{color:var(--ok)} .col-w{color:var(--warn)} .col-i{color:var(--info)} .col-g{color:var(--gold)} .col-p{color:var(--purple)}
 
-@media(max-width:640px){
-  .kpi-row{grid-template-columns:1fr 1fr}.g2,.g3{grid-template-columns:1fr}
-  .tab{font-size:10px;padding:7px 2px}
-  .cd-n{font-size:52px}.cd-sm{font-size:38px;min-width:64px}.cd-u{min-width:80px;padding:12px 14px 9px}
-  input[type=number]{width:52px}
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px) {
+  .kpi-row { grid-template-columns:1fr 1fr }
+  .g2,.g3 { grid-template-columns:1fr }
+  .tab { font-size:10px; padding:8px 2px }
+  .cd-n { font-size:52px } .cd-sm { font-size:38px; min-width:62px }
+  .cd-unit { min-width:82px; padding:13px 16px 10px }
+  input[type=number] { width:50px }
 }
 </style>
 </head>
@@ -165,38 +255,45 @@ input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
 
 <div id="err"></div>
 
+<!-- TOPBAR -->
 <div class="topbar">
-  <div>
-    <div class="tb-t">🎓 Hội Khóa QH 2003–2006</div>
-    <div class="tb-s">"Hẹn nhau ngày về" · THPT Chuyên Quốc Học Huế</div>
+  <div class="tb-brand">
+    <div class="tb-seal"><span>🎓</span></div>
+    <div>
+      <div class="tb-title">Hội Khóa Quốc Học 2003–2006</div>
+      <div class="tb-sub">"Hẹn nhau ngày về" · THPT Chuyên Quốc Học Huế</div>
+    </div>
   </div>
   <div class="tb-r">
     <button class="btn-r" onclick="loadData()">↻ Làm mới</button>
-    <span class="sync" id="sync">Đang tải…</span>
+    <span id="sync">Đang tải…</span>
   </div>
 </div>
 
+<!-- COUNTDOWN -->
 <div class="cdh">
-  <div class="cd-lbl">⏳ Đếm ngược đến ngày hội ngộ</div>
-  <div class="cd-line"></div>
+  <div class="cd-eyebrow">⏳ Đếm ngược đến ngày hội ngộ</div>
+  <div class="cd-rule"></div>
   <div class="cd-row">
-    <div class="cd-u"><span class="cd-n" id="cd-d">—</span><span class="cd-s">Ngày</span></div>
+    <div class="cd-unit"><span class="cd-n" id="cd-d">--</span><span class="cd-s">Ngày</span></div>
     <div class="cd-sep">:</div>
-    <div class="cd-u"><span class="cd-n cd-sm" id="cd-h">—</span><span class="cd-s">Giờ</span></div>
+    <div class="cd-unit"><span class="cd-n cd-sm" id="cd-h">--</span><span class="cd-s">Giờ</span></div>
     <div class="cd-sep">:</div>
-    <div class="cd-u"><span class="cd-n cd-sm" id="cd-m">—</span><span class="cd-s">Phút</span></div>
+    <div class="cd-unit"><span class="cd-n cd-sm" id="cd-m">--</span><span class="cd-s">Phút</span></div>
   </div>
-  <div class="cd-bot"></div>
+  <div class="cd-rule2"></div>
   <div class="cd-ev">Thứ Bảy · <strong>18 tháng 7 năm 2026</strong> · Trường THPT Chuyên Quốc Học Huế</div>
 </div>
 
+<!-- KPI -->
 <div class="kpi-row">
-  <div class="kpi kb"><div class="kpi-i">📋</div><div class="kl">Tổng đăng ký</div><div class="kv" style="color:var(--info)" id="k-dk">—</div><div class="ks" id="k-dks">/ 350 mục tiêu</div><div class="kbar"><div class="kbf" style="background:var(--info)" id="k-dkb"></div></div></div>
-  <div class="kpi kg"><div class="kpi-i">💳</div><div class="kl">Đã nộp 500k</div><div class="kv" style="color:var(--ok)" id="k-nop">—</div><div class="ks" id="k-nops">người</div><div class="kbar"><div class="kbf" style="background:var(--ok)" id="k-nopb"></div></div></div>
-  <div class="kpi ko"><div class="kpi-i">🤝</div><div class="kl">Tổng tài trợ</div><div class="kv" style="color:var(--gold)" id="k-tt">—</div><div class="ks" id="k-tts">nhà tài trợ</div><div class="kbar"><div class="kbf" style="background:var(--gold)" id="k-ttb"></div></div></div>
-  <div class="kpi kp"><div class="kpi-i">📊</div><div class="kl">Tiến độ việc</div><div class="kv" style="color:#8B5CF6" id="k-td">—</div><div class="ks" id="k-tds">hoàn thành</div><div class="kbar"><div class="kbf" style="background:#8B5CF6" id="k-tdb"></div></div></div>
+  <div class="kpi ki"><div class="kpi-ic">📋</div><div class="kl">Tổng đăng ký</div><div class="kv col-i" id="k-dk">--</div><div class="ks" id="k-dks">/ 350 mục tiêu</div><div class="kbar"><div class="kbf" style="background:var(--info)" id="k-dkb"></div></div></div>
+  <div class="kpi kg"><div class="kpi-ic">💳</div><div class="kl">Đã nộp 500k</div><div class="kv col-ok" id="k-nop">--</div><div class="ks" id="k-nops">người</div><div class="kbar"><div class="kbf" style="background:var(--ok)" id="k-nopb"></div></div></div>
+  <div class="kpi ko"><div class="kpi-ic">🤝</div><div class="kl">Tổng tài trợ</div><div class="kv col-g" id="k-tt">--</div><div class="ks" id="k-tts">nhà tài trợ</div><div class="kbar"><div class="kbf" style="background:var(--gold)" id="k-ttb"></div></div></div>
+  <div class="kpi kp"><div class="kpi-ic">📊</div><div class="kl">Tiến độ việc</div><div class="kv col-p" id="k-td">--</div><div class="ks" id="k-tds">hoàn thành</div><div class="kbar"><div class="kbf" style="background:var(--purple)" id="k-tdb"></div></div></div>
 </div>
 
+<!-- TABS -->
 <div class="tnav">
   <div class="tab on" onclick="sw(this,'dk')">📋 Đăng ký lớp</div>
   <div class="tab" onclick="sw(this,'nhap')">✏️ Nhập liệu</div>
@@ -207,15 +304,15 @@ input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
 
 <!-- ĐĂNG KÝ -->
 <div class="panel on" id="p-dk">
-  <div class="card full"><div class="cht">Đăng ký theo lớp <span class="hint">Từ Google Sheet</span></div><div id="dk-w"><div class="loading">Đang tải…</div></div></div>
+  <div class="card full"><div class="cht">Đăng ký theo lớp <span class="hint">từ Google Sheet</span></div><div id="dk-w"><div class="loading">Đang tải…</div></div></div>
   <div class="g3">
     <div class="card"><div class="cht">Tổng hợp</div>
       <div class="mg">
         <div class="mini"><div class="ml">Tổng sĩ số</div><div class="mv" style="color:var(--t2)" id="ms-ss">0</div></div>
-        <div class="mini"><div class="ml">Đăng ký</div><div class="mv" style="color:var(--info)" id="ms-dk">0</div></div>
-        <div class="mini"><div class="ml">Đã nộp</div><div class="mv" style="color:var(--ok)" id="ms-nop">0</div></div>
-        <div class="mini"><div class="ml">Chưa nộp</div><div class="mv" style="color:#E74C3C" id="ms-ch">0</div></div>
-        <div class="mini" style="grid-column:span 2"><div class="ml">Tiền đã thu</div><div class="mv" style="color:var(--accent);font-size:18px" id="ms-tt">0</div></div>
+        <div class="mini"><div class="ml">Đăng ký</div><div class="mv col-i" id="ms-dk">0</div></div>
+        <div class="mini"><div class="ml">Đã nộp</div><div class="mv col-ok" id="ms-nop">0</div></div>
+        <div class="mini"><div class="ml">Chưa nộp</div><div class="mv" style="color:#C62828" id="ms-ch">0</div></div>
+        <div class="mini" style="grid-column:span 2"><div class="ml">Tiền đã thu</div><div class="mv" style="color:var(--red);font-size:20px" id="ms-tt">0</div></div>
       </div>
     </div>
     <div class="card"><div class="cht">Tỉ lệ nộp phí</div><div class="cw"><canvas id="c-d1"></canvas></div></div>
@@ -232,9 +329,9 @@ input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
       <table class="ftbl">
         <thead><tr>
           <th style="width:110px">Lớp</th>
-          <th style="width:68px;text-align:center">Sĩ số</th>
-          <th style="width:82px;text-align:center">Đăng ký</th>
-          <th style="width:82px;text-align:center">Đã nộp</th>
+          <th style="width:65px;text-align:center">Sĩ số</th>
+          <th style="width:80px;text-align:center">Đăng ký</th>
+          <th style="width:80px;text-align:center">Đã nộp</th>
           <th>Đại diện</th><th>Ghi chú</th>
         </tr></thead>
         <tbody id="fb"><tr><td colspan="6" class="loading">Đang tải…</td></tr></tbody>
@@ -271,33 +368,30 @@ input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
     <div class="card"><div class="cht">Tiến độ theo Ban</div><div id="bpg"><div class="loading">…</div></div></div>
     <div class="card"><div class="cht">Cần làm ngay <span class="hint">ưu tiên cao</span></div><div id="urg"><div class="loading">…</div></div></div>
   </div>
-  <div class="card full"><div class="cht">Toàn bộ checklist <span class="hint">Sheet "Phân công"</span></div><div style="display:grid;grid-template-columns:1fr 1fr" id="chk"></div></div>
+  <div class="card full"><div class="cht">Toàn bộ checklist <span class="hint">Sheet "Phân công"</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0" id="chk"></div></div>
 </div>
 
 </div><!-- /app -->
 
 <script>
-// ══════════════════════════════════════════
-// ⚙️  ĐỔI URL NÀY SAU KHI DEPLOY APPS SCRIPT
-// ══════════════════════════════════════════
+// ── CONFIG ── Thay bằng URL Apps Script API của bạn
 const API_URL = 'https://script.google.com/macros/s/AKfycbz0BNIIVCZ2GnmVnuHwEx6tuSQUEU-800G5uwdtTPsMWaT00ZS6oHGXSmoR4lFZECPIXw/exec';
 
-// ══════════════════════════════════════════
 let D = null, CH = {};
 const HC = {'Kim Cương':'#FEF9E7','Vàng':'#FEF3C7','Bạc':'#F3F4F6','Đồng':'#FFFDE7','Ủng hộ':'#ECFDF5'};
 const HT = {'Kim Cương':'#B7770D','Vàng':'#78350F','Bạc':'#374151','Đồng':'#92400E','Ủng hộ':'#065F46'};
 const HI = {'Kim Cương':'💎','Vàng':'🥇','Bạc':'🥈','Đồng':'🥉','Ủng hộ':'💛'};
-const BC = ['#27AE60','#2980B9','#E67E22','#8B5CF6'];
+const BC = ['#2E7D32','#1565C0','#E67E22','#6A1B9A'];
 
 const fmt  = n => new Intl.NumberFormat('vi-VN').format(n) + 'đ';
 const fmtM = n => n >= 1e6 ? (n/1e6).toFixed(1) + 'M' : fmt(n);
 const pct  = (a,b) => b ? Math.round(a/b*100) : 0;
 const pad  = n => String(n).padStart(2,'0');
 const $    = id => document.getElementById(id);
-const st   = (id,v) => { const e=$(id); if(e) e.textContent = v; };
-const sb   = (id,w) => { const e=$(id); if(e) e.style.width = w + '%'; };
+const st   = (id,v) => { const e=$(id); if(e) e.textContent=v; };
+const sb   = (id,w) => { const e=$(id); if(e) e.style.width=w+'%'; };
 
-// ── Countdown ──
+// ── COUNTDOWN ──
 function tick() {
   const d = new Date('2026-07-18T07:00:00') - new Date();
   if (d <= 0) { st('cd-d','00'); st('cd-h','00'); st('cd-m','00'); return; }
@@ -305,94 +399,103 @@ function tick() {
   st('cd-h', pad(Math.floor((d%86400000)/3600000)));
   st('cd-m', pad(Math.floor((d%3600000)/60000)));
 }
-tick(); setInterval(tick, 30000);
 
-// ── Tabs ──
+// ── TABS ──
 function sw(el, id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
-  const p = $('p-' + id); if (p) p.classList.add('on');
+  const p = $('p-'+id); if(p) p.classList.add('on');
   el.classList.add('on');
   if (D) render(id);
 }
 
-// ── Load data từ API ──
-async function loadData() {
-  st('sync', 'Đang tải…');
-  const errEl = $('err');
-  if (errEl) errEl.style.display = 'none';
-  try {
-    const res = await fetch(API_URL + '?action=data');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'API lỗi');
+// ── LOAD DATA via JSONP (bypass CORS) ──
+function loadData() {
+  st('sync','Đang tải…');
+  const errEl = $('err'); if(errEl) errEl.style.display='none';
+  // Xóa script tag cũ nếu có
+  const old = document.getElementById('jsonp-script');
+  if (old) old.remove();
+  // Tạo callback name duy nhất
+  const cb = '_cb_' + Date.now();
+  window[cb] = function(data) {
+    delete window[cb];
+    const s = document.getElementById('jsonp-script');
+    if(s) s.remove();
+    if (!data || !data.ok) {
+      st('sync','❌ Lỗi');
+      if(errEl){ errEl.textContent='❌ Lỗi API: '+(data?data.error:'Không có phản hồi'); errEl.style.display='block'; }
+      return;
+    }
     D = data;
     renderAll();
     buildForm();
-  } catch(e) {
-    st('sync', '❌ Lỗi');
-    if (errEl) {
-      errEl.innerHTML = '❌ Không tải được dữ liệu: <strong>' + e.message + '</strong><br>'
-        + 'Kiểm tra: (1) Apps Script đã deploy chưa · (2) API_URL trong code đúng chưa · (3) Deploy đúng "Anyone"';
-      errEl.style.display = 'block';
-    }
-  }
+  };
+  const script = document.createElement('script');
+  script.id = 'jsonp-script';
+  script.onerror = function() {
+    st('sync','❌ Lỗi mạng');
+    if(errEl){ errEl.textContent='❌ Không kết nối được API. Kiểm tra API_URL.'; errEl.style.display='block'; }
+  };
+  script.src = API_URL + '?action=getData&callback=' + cb;
+  document.head.appendChild(script);
 }
 
-// ── Render all ──
+// ── RENDER ALL ──
 function renderAll() {
-  const dk = D.dangky, tt = D.tailtro, td = D.tiendo;
-  st('sync', 'Cập nhật ' + D.updated);
-  st('k-dk', dk.tongDK); sb('k-dkb', pct(dk.tongDK, 350));
-  st('k-nop', dk.daNop); st('k-nops', fmt(dk.tienThu)); sb('k-nopb', pct(dk.daNop, dk.tongDK));
-  st('k-tt', fmtM(tt.tong)); st('k-tts', tt.soNha + ' nhà tài trợ'); sb('k-ttb', Math.min(100, pct(tt.tong, 1e8)));
-  st('k-td', td.done + '/' + td.total); sb('k-tdb', pct(td.done, td.total));
+  const dk=D.dangky, tt=D.tailtro, td=D.tiendo;
+  st('sync','Cập nhật '+D.updated);
+  st('k-dk',dk.tongDK); sb('k-dkb',pct(dk.tongDK,350));
+  st('k-nop',dk.daNop); st('k-nops',fmtM(dk.tienThu)); sb('k-nopb',pct(dk.daNop,dk.tongDK));
+  st('k-tt',fmtM(tt.tong)); st('k-tts',tt.soNha+' nhà tài trợ'); sb('k-ttb',Math.min(100,pct(tt.tong,1e8)));
+  st('k-td',td.done+'/'+td.total); sb('k-tdb',pct(td.done,td.total));
   render('dk');
 }
-
 function render(id) {
-  if (!D) return;
-  if (id === 'dk') rDK();
-  else if (id === 'nhap') buildForm();
-  else if (id === 'tc') rTC();
-  else if (id === 'tt') rTT();
-  else if (id === 'td') rTD();
+  if(!D) return;
+  if(id==='dk') rDK();
+  else if(id==='nhap') buildForm();
+  else if(id==='tc') rTC();
+  else if(id==='tt') rTT();
+  else if(id==='td') rTD();
 }
 
-// ── Tab: Đăng ký ──
+// ── ĐĂNG KÝ ──
 function rDK() {
-  const bl = D.dangky.byLop, s = D.dangky;
+  const bl=D.dangky.byLop, s=D.dangky;
   let h = '<div style="overflow-x:auto"><table class="tbl"><thead><tr>'
     + '<th>Lớp</th><th style="text-align:center">Sĩ số</th><th style="text-align:center">ĐK</th>'
     + '<th style="text-align:center">Tỉ lệ ĐK</th><th style="text-align:center">Đã nộp</th>'
     + '<th style="text-align:center">Chưa</th><th>Tỉ lệ nộp</th><th>Đã thu</th><th>TT</th><th>Cập nhật</th>'
     + '</tr></thead><tbody>';
   bl.forEach(l => {
-    const ch = l.tongDK - l.daNop, pN = pct(l.daNop, l.tongDK), pD = pct(l.tongDK, l.siSo);
-    const tg = l.tongDK === 0 ? 'tmt' : pN === 100 ? 'tok' : 'twn';
-    h += `<tr><td><span class="lnm">${l.lop}</span></td>
-      <td style="text-align:center"><span class="nm">${l.siSo||'—'}</span></td>
-      <td style="text-align:center"><span class="${l.tongDK?'ng':'nm'}">${l.tongDK}</span></td>
-      <td style="text-align:center"><span class="${pD>=50?'ng':'nw'}">${l.siSo?pD+'%':'—'}</span></td>
-      <td style="text-align:center"><span class="ng">${l.daNop}</span></td>
-      <td style="text-align:center"><span class="${ch?'nw':'nm'}">${ch||'—'}</span></td>
+    const ch=l.tongDK-l.daNop, pN=pct(l.daNop,l.tongDK), pD=pct(l.tongDK,l.siSo);
+    const tg = l.tongDK===0?'tmt':pN===100?'tok':'twn';
+    h += `<tr>
+      <td><span class="lnm">${l.lop}</span></td>
+      <td style="text-align:center"><span class="gm">${l.siSo||'—'}</span></td>
+      <td style="text-align:center"><span class="${l.tongDK?'gok':'gm'}">${l.tongDK}</span></td>
+      <td style="text-align:center"><span class="${pD>=50?'gok':'gw'}">${l.siSo?pD+'%':'—'}</span></td>
+      <td style="text-align:center"><span class="gok">${l.daNop}</span></td>
+      <td style="text-align:center"><span class="${ch?'gw':'gm'}">${ch||'—'}</span></td>
       <td><div class="bw"><div class="bf" style="width:${pN}%;background:var(--ok)"></div></div></td>
-      <td style="font-family:'Nunito',sans-serif;font-weight:900;color:var(--accent);font-size:12px">${l.daNop?fmtM(l.daNop*5e5):'—'}</td>
-      <td><span class="tag ${tg}">${l.tongDK===0?'Chưa':pN===100?'100%':pN+'%'}</span></td>
-      <td style="font-size:11px;color:var(--t3)">${l.updated||'—'}</td></tr>`;
+      <td style="color:var(--red);font-weight:800;font-size:12px">${l.daNop?fmtM(l.daNop*500000):'—'}</td>
+      <td><span class="tag ${tg}">${l.tongDK===0?'Chưa có':pN===100?'Đủ 100%':pN+'%'}</span></td>
+      <td style="font-size:11px;color:var(--t3)">${l.updated||'—'}</td>
+    </tr>`;
   });
   h += '</tbody></table></div>';
   $('dk-w').innerHTML = h;
-  st('ms-ss', s.tongSiSo); st('ms-dk', s.tongDK); st('ms-nop', s.daNop); st('ms-ch', s.chuaNop); st('ms-tt', fmtM(s.tienThu));
-  if (CH.d1) CH.d1.destroy();
-  CH.d1 = new Chart($('c-d1'), { type:'doughnut', data:{ labels:['Đã nộp','Chưa nộp'], datasets:[{ data:[s.daNop,s.chuaNop], backgroundColor:['#27AE60','#EAE3D8'], borderWidth:0 }] }, options:{ responsive:true, maintainAspectRatio:false, cutout:'74%', plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' người'}} } } });
-  if (CH.bl) CH.bl.destroy();
-  CH.bl = new Chart($('c-bl'), { type:'bar', data:{ labels:bl.map(l=>l.lop), datasets:[{ label:'Đã nộp', data:bl.map(l=>l.daNop), backgroundColor:'#27AE60', borderRadius:3 },{ label:'Chưa', data:bl.map(l=>l.tongDK-l.daNop), backgroundColor:'#FDECEA', borderRadius:3 }] }, options:{ responsive:true, maintainAspectRatio:false, scales:{ x:{stacked:true,ticks:{font:{size:9},maxRotation:45}}, y:{stacked:true,ticks:{stepSize:5}} }, plugins:{legend:{display:false}} } });
+  st('ms-ss',s.tongSiSo); st('ms-dk',s.tongDK); st('ms-nop',s.daNop); st('ms-ch',s.chuaNop); st('ms-tt',fmtM(s.tienThu));
+  if(CH.d1) CH.d1.destroy();
+  CH.d1 = new Chart($('c-d1'),{type:'doughnut',data:{labels:['Đã nộp','Chưa nộp'],datasets:[{data:[s.daNop,s.chuaNop],backgroundColor:['#2E7D32','#EDE0C8'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'74%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+' người'}}}}});
+  if(CH.bl) CH.bl.destroy();
+  CH.bl = new Chart($('c-bl'),{type:'bar',data:{labels:bl.map(l=>l.lop),datasets:[{label:'Đã nộp',data:bl.map(l=>l.daNop),backgroundColor:'#2E7D32',borderRadius:3},{label:'Chưa',data:bl.map(l=>l.tongDK-l.daNop),backgroundColor:'#FDECEA',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,ticks:{font:{size:9},maxRotation:45}},y:{stacked:true,ticks:{stepSize:5}}},plugins:{legend:{display:false}}}});
 }
 
-// ── Form nhập liệu ──
+// ── NHẬP LIỆU ──
 function buildForm() {
-  if (!D) return;
+  if(!D) return;
   $('fb').innerHTML = D.dangky.byLop.map(l => `
     <tr data-lop="${l.lop}">
       <td class="llbl">${l.lop}</td>
@@ -404,86 +507,95 @@ function buildForm() {
     </tr>`).join('');
 }
 
-async function saveData() {
+function saveData() {
   const rows = [];
   document.querySelectorAll('#fb tr[data-lop]').forEach(tr => {
-    rows.push({ lop:tr.dataset.lop, siSo:tr.querySelector('.fss').value, tongDK:tr.querySelector('.fdk').value,
-      daNop:tr.querySelector('.fnp').value, daiDien:tr.querySelector('.fdd').value, ghichu:tr.querySelector('.fgc').value });
+    rows.push({lop:tr.dataset.lop, siSo:tr.querySelector('.fss').value, tongDK:tr.querySelector('.fdk').value,
+      daNop:tr.querySelector('.fnp').value, daiDien:tr.querySelector('.fdd').value, ghichu:tr.querySelector('.fgc').value});
   });
-  document.querySelectorAll('.bpri').forEach(b => { b.textContent = 'Đang lưu…'; b.disabled = true; });
-  try {
-    const res = await fetch(API_URL, { method:'POST', body: JSON.stringify({ action:'saveDangKy', rows }) });
-    const data = await res.json();
-    document.querySelectorAll('.bpri').forEach(b => { b.textContent = '💾 Lưu vào Sheet'; b.disabled = false; });
-    if (data.ok) {
-      const m = $('smsg'); if (m) { m.style.display = 'inline'; setTimeout(() => m.style.display='none', 3000); }
-      loadData();
-    } else { alert('Lỗi lưu: ' + data.error); }
-  } catch(e) {
-    document.querySelectorAll('.bpri').forEach(b => { b.textContent = '💾 Lưu vào Sheet'; b.disabled = false; });
-    alert('Lỗi kết nối: ' + e.message);
-  }
+  document.querySelectorAll('.bpri').forEach(b => { b.textContent='Đang lưu…'; b.disabled=true; });
+  const cb = '_save_' + Date.now();
+  window[cb] = function(data) {
+    delete window[cb];
+    const s=document.getElementById('save-script'); if(s)s.remove();
+    document.querySelectorAll('.bpri').forEach(b => { b.textContent='💾 Lưu vào Sheet'; b.disabled=false; });
+    if(!data||!data.ok){ alert('Lỗi lưu: '+(data?data.error:'Không phản hồi')); return; }
+    const m=$('smsg'); if(m){m.style.display='inline';setTimeout(()=>m.style.display='none',3000);}
+    loadData();
+  };
+  const script = document.createElement('script');
+  script.id = 'save-script';
+  // Encode rows vào URL params
+  script.src = API_URL + '?action=saveDangKy&callback=' + cb + '&rows=' + encodeURIComponent(JSON.stringify(rows));
+  document.head.appendChild(script);
 }
 
-// ── Tài chính ──
+// ── TÀI CHÍNH ──
 function rTC() {
-  const s = D.dangky, tt = D.tailtro, tong = (s.tienThu||0) + (tt.tong||0);
+  const s=D.dangky, tt=D.tailtro, tong=(s.tienThu||0)+(tt.tong||0);
   $('tc-thu').innerHTML = `
-    <div class="fr"><span class="fl">Phí tham dự (${s.daNop} × 500k)</span><span class="fv" style="color:var(--ok)">${fmt(s.tienThu)}</span></div>
-    <div class="fr"><span class="fl">Còn phải thu (${s.chuaNop} người)</span><span class="fv" style="color:var(--t3)">${fmt(s.chuaNop*5e5)}</span></div>
-    <div class="fr"><span class="fl">Tổng tài trợ đã nhận</span><span class="fv" style="color:var(--ok)">${fmt(tt.tong)}</span></div>
-    <div class="ftot"><span style="font-weight:700;font-size:12px">Tổng đã thu</span><span class="fv" style="color:var(--ok);font-size:18px">${fmt(tong)}</span></div>`;
-  const chi = D.dutru;
+    <div class="fr"><span class="fl">Phí tham dự (${s.daNop} × 500k)</span><span class="fv col-ok">${fmt(s.tienThu)}</span></div>
+    <div class="fr"><span class="fl">Còn phải thu (${s.chuaNop} người)</span><span class="fv" style="color:var(--t3)">${fmt(s.chuaNop*500000)}</span></div>
+    <div class="fr"><span class="fl">Tổng tài trợ đã nhận</span><span class="fv col-ok">${fmt(tt.tong)}</span></div>
+    <div class="ftot"><span style="font-weight:800">Tổng đã thu</span><span class="fv col-ok" style="font-size:18px">${fmt(tong)}</span></div>`;
+  const chi=D.dutru;
   $('tc-chi').innerHTML = chi.rows.length
-    ? chi.rows.map(r => `<div class="fr"><span class="fl">${r.congviec}</span><span class="fv">${r.thanhtien?fmt(r.thanhtien):'—'}</span></div>`).join('')
-      + `<div class="ftot"><span style="font-weight:700;font-size:12px">Tổng dự trù</span><span class="fv" style="font-size:16px">${fmt(chi.tong)}</span></div>`
+    ? chi.rows.map(r=>`<div class="fr"><span class="fl">${r.congviec}</span><span class="fv">${r.thanhtien?fmt(r.thanhtien):'—'}</span></div>`).join('')
+      + `<div class="ftot"><span style="font-weight:800">Tổng dự trù</span><span class="fv" style="font-size:16px">${fmt(chi.tong)}</span></div>`
     : '<div class="empty">Điền đơn giá vào Sheet "Dự trù kinh phí" để hiện</div>';
-  if (CH.btc) CH.btc.destroy();
-  CH.btc = new Chart($('c-btc'), { type:'bar', data:{ labels:D.dangky.byLop.map(l=>l.lop), datasets:[{ label:'Đã thu', data:D.dangky.byLop.map(l=>l.daNop*5e5), backgroundColor:'#8B4513', borderRadius:4 }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ x:{ticks:{font:{size:10},maxRotation:45}}, y:{ticks:{callback:v=>v/1e6+'M'}} } } });
+  if(CH.btc) CH.btc.destroy();
+  CH.btc = new Chart($('c-btc'),{type:'bar',data:{labels:D.dangky.byLop.map(l=>l.lop),datasets:[{label:'Đã thu',data:D.dangky.byLop.map(l=>l.daNop*500000),backgroundColor:'#8B1A1A',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},maxRotation:45}},y:{ticks:{callback:v=>v/1e6+'M'}}}}});
 }
 
-// ── Tài trợ ──
+// ── TÀI TRỢ ──
 function rTT() {
-  const r = D.tailtro;
-  $('tt-l').innerHTML = r.rows.length
-    ? r.rows.map(x => `<div class="spr"><span class="spb" style="background:${HC[x.hang]||'#f5f5f5'};color:${HT[x.hang]||'#333'}">${HI[x.hang]||''} ${x.hang}</span>
-        <span class="spn">${x.andanh?'Ẩn danh':x.ten}</span>
-        <div><div class="spa">${fmt(x.sotien)}</div><div style="font-size:11px;color:var(--t3)">${x.andanh?'':x.lop}${x.ngay?' · '+x.ngay:''}</div></div></div>`).join('')
-      + `<div style="margin-top:10px;padding:10px 14px;background:var(--bg);border-radius:var(--r-md);display:flex;justify-content:space-between"><span style="font-weight:800">Tổng tài trợ</span><span style="font-family:'Nunito',sans-serif;font-weight:900;color:var(--ok);font-size:16px">${fmt(r.tong)}</span></div>`
+  const {rows,tong,soNha}=D.tailtro;
+  $('tt-l').innerHTML = rows.length
+    ? rows.map(r=>`
+        <div class="spr">
+          <span class="spb" style="background:${HC[r.hang]||'#f5f5f5'};color:${HT[r.hang]||'#333'}">${HI[r.hang]||''} ${r.hang}</span>
+          <span class="spn">${r.andanh?'Ẩn danh':r.ten}</span>
+          <div><div class="spa">${fmt(r.sotien)}</div><div class="spc">${r.andanh?'':r.lop}${r.ngay?' · '+r.ngay:''}</div></div>
+        </div>`).join('')
+      + `<div style="margin-top:10px;padding:10px 14px;background:var(--cream);border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-weight:800">Tổng tài trợ</span>
+          <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--ok)">${fmt(tong)}</span></div>`
     : '<div class="empty">Chưa có dữ liệu tài trợ</div>';
-  const bh = {'Kim Cương':0,'Vàng':0,'Bạc':0,'Đồng':0,'Ủng hộ':0};
-  r.rows.forEach(x => { if (bh[x.hang] !== undefined) bh[x.hang] += x.sotien; });
-  const lbs = Object.keys(bh), vls = Object.values(bh), bgc = ['#C9A84C','#2980B9','#9CA3AF','#27AE60','#6EE7B7'];
-  if (CH.d2) CH.d2.destroy();
-  CH.d2 = new Chart($('c-d2'), { type:'doughnut', data:{ labels:lbs, datasets:[{ data:vls, backgroundColor:bgc, borderWidth:0 }] }, options:{ responsive:true, maintainAspectRatio:false, cutout:'65%', plugins:{legend:{display:false}} } });
-  $('tt-leg').innerHTML = lbs.map((l,i) => `<div class="li"><span class="ld" style="background:${bgc[i]}"></span>${HI[l]} ${l}${vls[i]?' – '+fmtM(vls[i]):''}</div>`).join('');
+  const bh={'Kim Cương':0,'Vàng':0,'Bạc':0,'Đồng':0,'Ủng hộ':0};
+  rows.forEach(r=>{if(bh[r.hang]!==undefined)bh[r.hang]+=r.sotien;});
+  const lbs=Object.keys(bh),vls=Object.values(bh),bgc=['#C9A84C','#1565C0','#9CA3AF','#2E7D32','#6EE7B7'];
+  if(CH.d2) CH.d2.destroy();
+  CH.d2 = new Chart($('c-d2'),{type:'doughnut',data:{labels:lbs,datasets:[{data:vls,backgroundColor:bgc,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false}}}});
+  $('tt-leg').innerHTML = lbs.map((l,i)=>`<div class="li"><span class="ld" style="background:${bgc[i]}"></span>${HI[l]} ${l}${vls[i]?' – '+fmtM(vls[i]):''}</div>`).join('');
 }
 
-// ── Tiến độ ──
+// ── TIẾN ĐỘ ──
 function rTD() {
-  const td = D.tiendo;
-  $('bpg').innerHTML = td.byBan.map((b,i) => `
-    <div class="bp"><div class="bph"><span class="bpn">${b.ban}</span><span class="bps">${b.done}/${b.total} · ${b.pct}%</span></div>
-    <div class="bpt"><div class="bpf" style="width:${b.pct}%;background:${BC[i%4]}"></div></div>
-    <div class="bpsub">Còn ${b.total-b.done} việc</div></div>`).join('');
-  const urg = td.rows.filter(r => r.trangthai !== 'Hoàn thành').slice(0,6);
+  const td=D.tiendo;
+  const BANS=[{k:'btc',l:'Ban Tổ chức'},{k:'truyền thông',l:'Ban Truyền thông'},{k:'sự kiện',l:'Ban Sự kiện'},{k:'hậu cần',l:'Ban Hậu cần – TC'}];
+  $('bpg').innerHTML = BANS.map((b,i) => {
+    const t=td.rows.filter(r=>(r.nguoipt||'').toLowerCase().includes(b.k));
+    const d=t.filter(r=>r.trangthai==='Hoàn thành').length;
+    const p=t.length?Math.round(d/t.length*100):0;
+    return `<div class="bp"><div class="bph"><span class="bpn">${b.l}</span><span class="bps">${d}/${t.length} · ${p}%</span></div><div class="bpt"><div class="bpf" style="width:${p}%;background:${BC[i%4]}"></div></div><div class="bpsub">Còn ${t.length-d} việc</div></div>`;
+  }).join('');
+  const urg=td.rows.filter(r=>r.trangthai!=='Hoàn thành').slice(0,6);
   $('urg').innerHTML = urg.map(t => {
-    const g = t.trangthai === 'Đang thực hiện';
-    return `<div class="tr2"><div class="ck ${g?'ckg':'ckt'}">${g?'·':''}</div>
-      <div><div class="tnm">${t.congviec}<span class="bdg ${g?'bdg2':'bdt'}">${t.trangthai}</span></div>
-      <div class="tmt2">${t.nguoipt||''}</div></div></div>`;
+    const g=t.trangthai==='Đang thực hiện';
+    return `<div class="tr2"><div class="ck ${g?'ckg':'ckt'}">${g?'·':''}</div><div><div class="tnm">${t.congviec}<span class="bdg ${g?'bdg2':'bdt'}">${t.trangthai}</span></div><div class="tmt2">${t.nguoipt||''}</div></div></div>`;
   }).join('');
-  const half = Math.ceil(td.rows.length/2);
-  const rH = sl => sl.map(t => {
-    const d = t.trangthai==='Hoàn thành', g = t.trangthai==='Đang thực hiện';
-    return `<div class="tr2"><div class="ck ${d?'ckd':g?'ckg':'ckt'}">${d?'✓':g?'·':''}</div>
-      <div><div class="tnm" style="font-size:11px">${t.congviec}<span class="bdg ${d?'bdd':g?'bdg2':'bdt'}">${t.trangthai}</span></div>
-      <div class="tmt2">${t.nguoipt||''}</div></div></div>`;
+  const half=Math.ceil(td.rows.length/2);
+  const rH=sl=>sl.map(t=>{
+    const sd=t.trangthai==='Hoàn thành',sg=t.trangthai==='Đang thực hiện';
+    return `<div class="tr2"><div class="ck ${sd?'ckd':sg?'ckg':'ckt'}">${sd?'✓':sg?'·':''}</div><div><div class="tnm" style="font-size:11px">${t.congviec}<span class="bdg ${sd?'bdd':sg?'bdg2':'bdt'}">${t.trangthai}</span></div><div class="tmt2">${t.nguoipt||''}</div></div></div>`;
   }).join('');
-  $('chk').innerHTML = `<div>${rH(td.rows.slice(0,half))}</div><div>${rH(td.rows.slice(half))}</div>`;
+  $('chk').innerHTML=`<div>${rH(td.rows.slice(0,half))}</div><div>${rH(td.rows.slice(half))}</div>`;
 }
 
-window.onload = loadData;
+// ── INIT ──
+tick();
+setInterval(tick, 30000);
+loadData();
 </script>
 </body>
 </html>
