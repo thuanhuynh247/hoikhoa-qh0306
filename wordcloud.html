@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hội Khóa QH 2003–2006 · Danh Sách</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--gold:#D4A843;--cream:#FAF0DC;--dark:#080402}
@@ -11,191 +12,129 @@
 html,body{width:100%;height:100%;overflow:hidden}
 body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
 
-/* ── BG: Cổng trường Quốc Học ── */
-.bg{
-  position:fixed;inset:0;z-index:0;
-  background:
-    url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg/1280px-Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg')
-    center 40%/cover no-repeat;
-}
-.bg::after{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 70% at 50% 50%,
-      rgba(8,4,2,.1) 0%,rgba(8,4,2,.55) 55%,rgba(8,4,2,.9) 100%),
-    linear-gradient(180deg,
-      rgba(8,4,2,.85) 0%,rgba(8,4,2,.18) 18%,
-      rgba(8,4,2,.12) 46%,rgba(8,4,2,.28) 72%,rgba(8,4,2,.9) 100%);
-}
-.bg::before{
-  content:'';position:absolute;inset:0;z-index:1;opacity:.032;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.glow-r{position:fixed;pointer-events:none;z-index:1;width:480px;height:300px;border-radius:50%;top:-50px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(150,36,16,.2) 0%,transparent 70%)}
-.glow-b{position:fixed;pointer-events:none;z-index:1;width:400px;height:260px;border-radius:50%;bottom:-50px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(170,96,16,.14) 0%,transparent 70%)}
+/* BG */
+.bg{position:fixed;inset:0;z-index:0;background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg/1280px-Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg') center 40%/cover no-repeat}
+.bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(8,4,2,.08) 0%,rgba(8,4,2,.5) 50%,rgba(8,4,2,.92) 100%),linear-gradient(180deg,rgba(8,4,2,.88) 0%,rgba(8,4,2,.16) 20%,rgba(8,4,2,.1) 45%,rgba(8,4,2,.25) 70%,rgba(8,4,2,.92) 100%)}
+.bg::before{content:'';position:absolute;inset:0;z-index:1;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.glow-r{position:fixed;pointer-events:none;z-index:1;width:500px;height:320px;border-radius:50%;top:-60px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(148,34,14,.18) 0%,transparent 70%)}
+.glow-b{position:fixed;pointer-events:none;z-index:1;width:420px;height:260px;border-radius:50%;bottom:-55px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,rgba(168,94,14,.13) 0%,transparent 70%)}
 
-/* ── HEADER ── */
-.hdr{
-  position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:linear-gradient(180deg,rgba(8,4,2,.96) 0%,rgba(8,4,2,.75) 100%);
-  border-bottom:1px solid rgba(212,168,67,.14);backdrop-filter:blur(16px);
-}
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(8,4,2,.97) 0%,rgba(8,4,2,.78) 100%);border-bottom:1px solid rgba(212,168,67,.13);backdrop-filter:blur(18px)}
 .hdr-l{display:flex;align-items:center;gap:12px}
-.hdr-seal{
-  width:36px;height:36px;border-radius:50%;flex-shrink:0;
-  border:1.5px solid rgba(212,168,67,.4);background:rgba(212,168,67,.07);
-  display:flex;align-items:center;justify-content:center;font-size:16px;
-  box-shadow:0 0 14px rgba(212,168,67,.16);
-}
+.hdr-seal{width:36px;height:36px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(212,168,67,.38);background:rgba(212,168,67,.07);display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 14px rgba(212,168,67,.15)}
 .hdr-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--cream);letter-spacing:.2px}
-.hdr-sub{font-size:10px;color:rgba(250,240,220,.36);margin-top:1px}
+.hdr-sub{font-size:10px;color:rgba(250,240,220,.34);margin-top:1px}
 .hdr-r{display:flex;align-items:center;gap:14px}
 .hdr-stat .val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold);line-height:1}
-.hdr-stat .lbl{font-size:9px;color:rgba(250,240,220,.36);text-transform:uppercase;letter-spacing:1px;margin-top:1px}
-.hdr-sep{width:1px;height:28px;background:rgba(212,168,67,.12)}
+.hdr-stat .lbl{font-size:9px;color:rgba(250,240,220,.34);text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.hdr-sep{width:1px;height:26px;background:rgba(212,168,67,.11)}
 
-/* ── FILTER STRIP ── */
-.fstrip{
-  position:fixed;top:60px;left:0;right:0;z-index:190;height:42px;
-  padding:0 20px;display:flex;align-items:center;gap:5px;
-  background:rgba(8,4,2,.82);border-bottom:1px solid rgba(212,168,67,.08);
-  backdrop-filter:blur(14px);overflow-x:auto;
-}
+/* FILTER */
+.fstrip{position:fixed;top:58px;left:0;right:0;z-index:190;height:40px;padding:0 18px;display:flex;align-items:center;gap:5px;background:rgba(8,4,2,.84);border-bottom:1px solid rgba(212,168,67,.07);backdrop-filter:blur(14px);overflow-x:auto}
 .fstrip::-webkit-scrollbar{display:none}
-.fpill{
-  font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;
-  border:1px solid rgba(212,168,67,.18);color:rgba(250,240,220,.46);
-  cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .18s;background:transparent;
-}
+.fpill{font-size:10.5px;font-weight:700;padding:3px 11px;border-radius:20px;border:1px solid rgba(212,168,67,.16);color:rgba(250,240,220,.44);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .18s;background:transparent}
 .fpill.on{font-weight:800;border-color:transparent}
-.fsearch{
-  margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:7px;
-  background:rgba(250,240,220,.04);border:1px solid rgba(212,168,67,.14);
-  border-radius:20px;padding:4px 12px;
-}
-.fsearch input{
-  border:none;outline:none;background:transparent;
-  font-family:'Be Vietnam Pro',sans-serif;font-size:11px;color:var(--cream);width:130px;
-}
-.fsearch input::placeholder{color:rgba(250,240,220,.18)}
-.fcount{font-size:10px;color:rgba(250,240,220,.26);white-space:nowrap;font-weight:600}
+.fsearch{margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:6px;background:rgba(250,240,220,.04);border:1px solid rgba(212,168,67,.13);border-radius:20px;padding:4px 12px}
+.fsearch input{border:none;outline:none;background:transparent;font-family:'Be Vietnam Pro',sans-serif;font-size:11px;color:var(--cream);width:130px}
+.fsearch input::placeholder{color:rgba(250,240,220,.16)}
+.fcount{font-size:10px;color:rgba(250,240,220,.24);white-space:nowrap;font-weight:600}
 
-/* ── CLOUD ── */
-.cloud-wrap{position:fixed;top:102px;left:0;right:0;bottom:0;z-index:2;overflow:hidden}
+/* CLOUD */
+.cloud-wrap{position:fixed;top:98px;left:0;right:0;bottom:0;z-index:2;overflow:hidden}
 .cloud-inner{position:relative;width:100%;height:100%}
 
-/* ── NAME CHIPS ── */
-.nchip{
-  position:absolute;font-family:'Be Vietnam Pro',sans-serif;
-  font-weight:700;white-space:nowrap;cursor:none;
-  transition:opacity .22s,filter .22s;
-}
-.ntxt{
-  display:inline-block;padding:2px 8px;border-radius:5px;
-  position:relative;transition:all .2s;
-}
-.ntxt::after{
-  content:'';position:absolute;inset:-3px;border-radius:7px;
-  border:1.5px solid currentColor;opacity:0;transition:opacity .2s;
-}
-.nchip.hi .ntxt::after{opacity:.38}
-.nchip.hi .ntxt{transform:scale(1.13)}
-.nbadge{
-  position:absolute;top:-20px;left:50%;transform:translateX(-50%);
-  font-size:9px;font-weight:800;padding:2px 8px;border-radius:8px;
-  white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;
-}
+/* CHIPS */
+.nchip{position:absolute;font-family:'Be Vietnam Pro',sans-serif;font-weight:700;white-space:nowrap;cursor:none;transition:opacity .22s,filter .22s}
+.ntxt{display:inline-block;padding:2px 9px;border-radius:5px;position:relative;transition:transform .2s}
+.ntxt::after{content:'';position:absolute;inset:-3px;border-radius:7px;border:1.5px solid currentColor;opacity:0;transition:opacity .2s;pointer-events:none}
+.nchip.hi .ntxt::after{opacity:.35}
+.nchip.hi .ntxt{transform:scale(1.14)}
+.nbadge{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;padding:2px 9px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;letter-spacing:.3px}
 .nchip.hi .nbadge{opacity:1}
-.nchip.dim{opacity:.08;filter:blur(1.5px)}
+.nchip.dim{opacity:.07;filter:blur(1.5px)}
 
-/* ── PALETTE 15 màu — tông ấm hòa ảnh Quốc Học ── */
-.c0  .ntxt{color:#FF7043;text-shadow:0 0 16px rgba(255,112,67,.3)}
-.c0.hi .ntxt{color:#FF8E6A;text-shadow:0 0 30px rgba(255,112,67,.7),0 0 60px rgba(255,112,67,.2)}
-.c1  .ntxt{color:#FFA040;text-shadow:0 0 16px rgba(255,160,64,.28)}
-.c1.hi .ntxt{color:#FFB860;text-shadow:0 0 30px rgba(255,160,64,.68),0 0 60px rgba(255,160,64,.2)}
-.c2  .ntxt{color:#F5C518;text-shadow:0 0 16px rgba(245,197,24,.26)}
-.c2.hi .ntxt{color:#FFD740;text-shadow:0 0 30px rgba(245,197,24,.65),0 0 60px rgba(245,197,24,.18)}
-.c3  .ntxt{color:#D4A843;text-shadow:0 0 16px rgba(212,168,67,.28)}
-.c3.hi .ntxt{color:#F0C96A;text-shadow:0 0 30px rgba(212,168,67,.65),0 0 60px rgba(212,168,67,.2)}
-.c4  .ntxt{color:#E05540;text-shadow:0 0 16px rgba(224,85,64,.26)}
-.c4.hi .ntxt{color:#EF7058;text-shadow:0 0 30px rgba(224,85,64,.65),0 0 60px rgba(224,85,64,.18)}
-.c5  .ntxt{color:#F06292;text-shadow:0 0 16px rgba(240,98,146,.26)}
-.c5.hi .ntxt{color:#F48FB1;text-shadow:0 0 30px rgba(240,98,146,.62),0 0 60px rgba(240,98,146,.18)}
-.c6  .ntxt{color:#FAD4A0;text-shadow:0 0 16px rgba(250,212,160,.2)}
-.c6.hi .ntxt{color:#FFE8C0;text-shadow:0 0 30px rgba(250,212,160,.58),0 0 60px rgba(250,212,160,.16)}
-.c7  .ntxt{color:#E8A030;text-shadow:0 0 16px rgba(232,160,48,.26)}
-.c7.hi .ntxt{color:#F5B848;text-shadow:0 0 30px rgba(232,160,48,.62),0 0 60px rgba(232,160,48,.18)}
-.c8  .ntxt{color:#EF5350;text-shadow:0 0 16px rgba(239,83,80,.26)}
-.c8.hi .ntxt{color:#FF6F6D;text-shadow:0 0 30px rgba(239,83,80,.62),0 0 60px rgba(239,83,80,.18)}
-.c9  .ntxt{color:#80CBC4;text-shadow:0 0 16px rgba(128,203,196,.2)}
-.c9.hi .ntxt{color:#A7EDE8;text-shadow:0 0 30px rgba(128,203,196,.55),0 0 60px rgba(128,203,196,.16)}
-.c10 .ntxt{color:#CE93D8;text-shadow:0 0 16px rgba(206,147,216,.2)}
-.c10.hi .ntxt{color:#E1B6E8;text-shadow:0 0 30px rgba(206,147,216,.55),0 0 60px rgba(206,147,216,.16)}
-.c11 .ntxt{color:#A5D6A7;text-shadow:0 0 16px rgba(165,214,167,.18)}
-.c11.hi .ntxt{color:#C8E6C9;text-shadow:0 0 30px rgba(165,214,167,.5),0 0 60px rgba(165,214,167,.14)}
-.c12 .ntxt{color:#E6EE9C;text-shadow:0 0 16px rgba(230,238,156,.18)}
-.c12.hi .ntxt{color:#F5F5AA;text-shadow:0 0 30px rgba(230,238,156,.5),0 0 60px rgba(230,238,156,.14)}
-.c13 .ntxt{color:#90CAF9;text-shadow:0 0 16px rgba(144,202,249,.18)}
-.c13.hi .ntxt{color:#B8DFF9;text-shadow:0 0 30px rgba(144,202,249,.5),0 0 60px rgba(144,202,249,.14)}
-.c14 .ntxt{color:#DCEDC8;text-shadow:0 0 16px rgba(220,237,200,.16)}
-.c14.hi .ntxt{color:#F1F8E9;text-shadow:0 0 30px rgba(220,237,200,.48),0 0 60px rgba(220,237,200,.12)}
+/* PALETTE — 15 lớp */
+.c0  .ntxt{color:#FF7043}.c0.hi  .ntxt{color:#FF8E6A;text-shadow:0 0 30px rgba(255,112,67,.75),0 0 70px rgba(255,112,67,.25)}
+.c1  .ntxt{color:#FFA040}.c1.hi  .ntxt{color:#FFB860;text-shadow:0 0 30px rgba(255,160,64,.72),0 0 70px rgba(255,160,64,.22)}
+.c2  .ntxt{color:#F5C518}.c2.hi  .ntxt{color:#FFD740;text-shadow:0 0 30px rgba(245,197,24,.7),0 0 70px rgba(245,197,24,.22)}
+.c3  .ntxt{color:#D4A843}.c3.hi  .ntxt{color:#F0C96A;text-shadow:0 0 30px rgba(212,168,67,.7),0 0 70px rgba(212,168,67,.22)}
+.c4  .ntxt{color:#E05540}.c4.hi  .ntxt{color:#EF7058;text-shadow:0 0 30px rgba(224,85,64,.7),0 0 70px rgba(224,85,64,.2)}
+.c5  .ntxt{color:#F06292}.c5.hi  .ntxt{color:#F48FB1;text-shadow:0 0 30px rgba(240,98,146,.68),0 0 70px rgba(240,98,146,.2)}
+.c6  .ntxt{color:#FFD0A0}.c6.hi  .ntxt{color:#FFE4BF;text-shadow:0 0 30px rgba(255,208,160,.6),0 0 70px rgba(255,208,160,.18)}
+.c7  .ntxt{color:#E8A030}.c7.hi  .ntxt{color:#F5B848;text-shadow:0 0 30px rgba(232,160,48,.68),0 0 70px rgba(232,160,48,.2)}
+.c8  .ntxt{color:#EF5350}.c8.hi  .ntxt{color:#FF6F6D;text-shadow:0 0 30px rgba(239,83,80,.68),0 0 70px rgba(239,83,80,.2)}
+.c9  .ntxt{color:#80CBC4}.c9.hi  .ntxt{color:#A7EDE8;text-shadow:0 0 30px rgba(128,203,196,.6),0 0 70px rgba(128,203,196,.18)}
+.c10 .ntxt{color:#CE93D8}.c10.hi .ntxt{color:#E1B6E8;text-shadow:0 0 30px rgba(206,147,216,.6),0 0 70px rgba(206,147,216,.18)}
+.c11 .ntxt{color:#A5D6A7}.c11.hi .ntxt{color:#C8E6C9;text-shadow:0 0 30px rgba(165,214,167,.55),0 0 70px rgba(165,214,167,.16)}
+.c12 .ntxt{color:#E8EE6A}.c12.hi .ntxt{color:#F5F588;text-shadow:0 0 30px rgba(232,238,106,.58),0 0 70px rgba(232,238,106,.18)}
+.c13 .ntxt{color:#90CAF9}.c13.hi .ntxt{color:#B8DFF9;text-shadow:0 0 30px rgba(144,202,249,.55),0 0 70px rgba(144,202,249,.16)}
+.c14 .ntxt{color:#C8E6A0}.c14.hi .ntxt{color:#DFF5B8;text-shadow:0 0 30px rgba(200,230,160,.52),0 0 70px rgba(200,230,160,.15)}
 
-/* badge bg colors */
-.c0 .nbadge{background:#FF7043;color:#fff}   .c1 .nbadge{background:#FFA040;color:#fff}
+/* text-shadow mặc định nhẹ */
+.c0 .ntxt{text-shadow:0 0 14px rgba(255,112,67,.22)}
+.c1 .ntxt{text-shadow:0 0 14px rgba(255,160,64,.2)}
+.c2 .ntxt{text-shadow:0 0 14px rgba(245,197,24,.2)}
+.c3 .ntxt{text-shadow:0 0 14px rgba(212,168,67,.22)}
+.c4 .ntxt{text-shadow:0 0 14px rgba(224,85,64,.2)}
+.c5 .ntxt{text-shadow:0 0 14px rgba(240,98,146,.2)}
+.c6 .ntxt{text-shadow:0 0 14px rgba(255,208,160,.15)}
+.c7 .ntxt{text-shadow:0 0 14px rgba(232,160,48,.2)}
+.c8 .ntxt{text-shadow:0 0 14px rgba(239,83,80,.2)}
+.c9 .ntxt{text-shadow:0 0 14px rgba(128,203,196,.16)}
+.c10 .ntxt{text-shadow:0 0 14px rgba(206,147,216,.16)}
+.c11 .ntxt{text-shadow:0 0 14px rgba(165,214,167,.15)}
+.c12 .ntxt{text-shadow:0 0 14px rgba(232,238,106,.18)}
+.c13 .ntxt{text-shadow:0 0 14px rgba(144,202,249,.15)}
+.c14 .ntxt{text-shadow:0 0 14px rgba(200,230,160,.14)}
+
+/* Badge colors */
+.c0 .nbadge{background:#FF7043;color:#fff}  .c1 .nbadge{background:#FFA040;color:#fff}
 .c2 .nbadge{background:#F5C518;color:#3A2800} .c3 .nbadge{background:#D4A843;color:#3A2800}
-.c4 .nbadge{background:#E05540;color:#fff}   .c5 .nbadge{background:#F06292;color:#fff}
-.c6 .nbadge{background:#C9A070;color:#fff}   .c7 .nbadge{background:#E8A030;color:#fff}
-.c8 .nbadge{background:#EF5350;color:#fff}   .c9 .nbadge{background:#80CBC4;color:#0A2A28}
-.c10 .nbadge{background:#CE93D8;color:#2A003A} .c11 .nbadge{background:#A5D6A7;color:#0A280A}
-.c12 .nbadge{background:#BFC62E;color:#1A1A00} .c13 .nbadge{background:#90CAF9;color:#0A1A3A}
-.c14 .nbadge{background:#9CCC65;color:#1A2800}
+.c4 .nbadge{background:#E05540;color:#fff}  .c5 .nbadge{background:#F06292;color:#fff}
+.c6 .nbadge{background:#C9A070;color:#fff}  .c7 .nbadge{background:#E8A030;color:#fff}
+.c8 .nbadge{background:#EF5350;color:#fff}  .c9 .nbadge{background:#4DBFB8;color:#fff}
+.c10 .nbadge{background:#C277D8;color:#fff} .c11 .nbadge{background:#6BBF6E;color:#fff}
+.c12 .nbadge{background:#C0C02A;color:#fff} .c13 .nbadge{background:#5AADEE;color:#fff}
+.c14 .nbadge{background:#8DC850;color:#fff}
 
-/* ── MAGNIFIER ── */
-#mag{
-  position:fixed;z-index:500;pointer-events:none;display:none;
-  width:230px;height:230px;border-radius:50%;
-  border:2px solid rgba(212,168,67,.58);
-  box-shadow:0 0 0 1px rgba(212,168,67,.16),0 0 0 8px rgba(212,168,67,.04),
-             0 14px 55px rgba(0,0,0,.65),inset 0 2px 6px rgba(255,255,255,.05);
-  overflow:hidden;
-}
-#mag-glass{position:absolute;inset:0;border-radius:50%;z-index:10;pointer-events:none;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.06) 0%,transparent 52%)}
+/* MAGNIFIER */
+#mag{position:fixed;z-index:500;pointer-events:none;display:none;width:240px;height:240px;border-radius:50%;border:2.5px solid rgba(212,168,67,.62);box-shadow:0 0 0 1px rgba(212,168,67,.15),0 0 0 10px rgba(212,168,67,.04),0 16px 60px rgba(0,0,0,.7),inset 0 2px 8px rgba(255,255,255,.06);overflow:hidden}
+#mag-glass{position:absolute;inset:0;border-radius:50%;z-index:10;pointer-events:none;background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.08) 0%,transparent 50%)}
 #mag-canvas{position:absolute;transform-origin:0 0}
-.mag-handle{position:absolute;bottom:-52px;right:-36px;width:76px;height:7px;border-radius:4px;transform:rotate(44deg);transform-origin:left center;background:linear-gradient(90deg,rgba(212,168,67,.5),rgba(212,168,67,.1))}
-.mag-handle::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:rgba(212,168,67,.26);box-shadow:0 0 8px rgba(212,168,67,.38)}
+.mag-handle{position:absolute;bottom:-56px;right:-38px;width:82px;height:7px;border-radius:4px;transform:rotate(44deg);transform-origin:left center;background:linear-gradient(90deg,rgba(212,168,67,.52),rgba(212,168,67,.1))}
+.mag-handle::after{content:'';position:absolute;right:-2px;top:50%;transform:translateY(-50%);width:15px;height:15px;border-radius:50%;background:rgba(212,168,67,.28);box-shadow:0 0 10px rgba(212,168,67,.4)}
 
-/* ── TOOLTIP ── */
-#tip{position:fixed;z-index:600;pointer-events:none;display:none;font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:800;padding:6px 14px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,.5);white-space:nowrap;transform:translateX(-50%)}
+/* TOOLTIP */
+#tip{position:fixed;z-index:600;pointer-events:none;display:none;font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:800;padding:6px 16px;border-radius:20px;box-shadow:0 4px 22px rgba(0,0,0,.55);white-space:nowrap;transform:translateX(-50%);letter-spacing:.2px}
 
-/* ── CURSOR ── */
-#cur{position:fixed;z-index:700;pointer-events:none;width:11px;height:11px;border-radius:50%;background:var(--gold);opacity:.9;transform:translate(-50%,-50%);box-shadow:0 0 10px rgba(212,168,67,.65)}
-#cur2{position:fixed;z-index:699;pointer-events:none;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(212,168,67,.3);transform:translate(-50%,-50%)}
+/* CURSOR */
+#cur{position:fixed;z-index:700;pointer-events:none;width:10px;height:10px;border-radius:50%;background:var(--gold);opacity:.92;transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(212,168,67,.7)}
+#cur2{position:fixed;z-index:699;pointer-events:none;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(212,168,67,.28);transform:translate(-50%,-50%)}
 
-/* ── LEGEND ── */
-.legend{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:180;display:flex;flex-direction:column;gap:3px;max-height:calc(100vh-140px);overflow-y:auto}
-.legend::-webkit-scrollbar{width:2px}.legend::-webkit-scrollbar-thumb{background:rgba(212,168,67,.15);border-radius:1px}
-.litem{display:flex;align-items:center;gap:7px;cursor:pointer;padding:4px 9px;border-radius:8px;background:rgba(8,4,2,.68);border:1px solid transparent;backdrop-filter:blur(10px);transition:all .18s}
-.litem:hover,.litem.on{border-color:rgba(212,168,67,.2);background:rgba(212,168,67,.08)}
+/* LEGEND */
+.legend{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:180;display:flex;flex-direction:column;gap:3px;max-height:calc(100vh - 130px);overflow-y:auto}
+.legend::-webkit-scrollbar{width:2px}.legend::-webkit-scrollbar-thumb{background:rgba(212,168,67,.14);border-radius:1px}
+.litem{display:flex;align-items:center;gap:7px;cursor:pointer;padding:4px 9px;border-radius:8px;background:rgba(8,4,2,.7);border:1px solid transparent;backdrop-filter:blur(10px);transition:all .18s}
+.litem:hover,.litem.on{border-color:rgba(212,168,67,.2);background:rgba(212,168,67,.09)}
 .ldot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 .llbl{font-size:10px;font-weight:700;color:rgba(250,240,220,.5)}
 .lcnt{font-size:9px;color:rgba(250,240,220,.26);font-weight:700;margin-left:2px}
 .litem.on .llbl{color:rgba(250,240,220,.9)}
 
-/* ── HINT ── */
-.hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:180;pointer-events:none;background:rgba(8,4,2,.76);backdrop-filter:blur(12px);border:1px solid rgba(212,168,67,.1);border-radius:24px;padding:7px 16px;display:flex;align-items:center;gap:8px;font-size:10.5px;color:rgba(250,240,220,.35);font-weight:500}
-.hdot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.48;flex-shrink:0}
+/* HINT */
+.hint{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:180;pointer-events:none;background:rgba(8,4,2,.78);backdrop-filter:blur(14px);border:1px solid rgba(212,168,67,.1);border-radius:24px;padding:7px 18px;display:flex;align-items:center;gap:9px;font-size:10px;color:rgba(250,240,220,.34);font-weight:500}
+.hdot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.45;flex-shrink:0}
 
-/* ── LOADING ── */
-#loading{position:fixed;inset:0;z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,4,2,.95);backdrop-filter:blur(8px)}
-.spin{width:44px;height:44px;border-radius:50%;border:2px solid rgba(212,168,67,.18);border-top-color:var(--gold);animation:spin .8s linear infinite;margin-bottom:16px}
+/* LOADING */
+#loading{position:fixed;inset:0;z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,4,2,.96);backdrop-filter:blur(8px)}
+.spin{width:44px;height:44px;border-radius:50%;border:2px solid rgba(212,168,67,.16);border-top-color:var(--gold);animation:spin .8s linear infinite;margin-bottom:16px}
 .load-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--gold);letter-spacing:.5px}
-.load-sub{font-size:11px;color:rgba(250,240,220,.35);margin-top:6px}
-#err-msg{display:none;margin-top:16px;font-size:12px;color:#FF7043;text-align:center;max-width:360px;line-height:1.6}
-#err-msg a{color:var(--gold);text-decoration:underline;cursor:pointer}
+.load-sub{font-size:11px;color:rgba(250,240,220,.32);margin-top:6px}
+#err-msg{display:none;margin-top:18px;font-size:12px;color:#FF7043;text-align:center;max-width:380px;line-height:1.7}
 
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes floatIn{from{opacity:0;transform:scale(.65) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes floatIn{from{opacity:0;transform:scale(.62) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 </style>
 </head>
 <body>
@@ -206,7 +145,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
 <div id="cur"></div>
 <div id="cur2"></div>
 
-<!-- LOADING -->
 <div id="loading">
   <div class="spin"></div>
   <div class="load-title">Đang tải danh sách…</div>
@@ -214,7 +152,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
   <div id="err-msg"></div>
 </div>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-l">
     <div class="hdr-seal">🎓</div>
@@ -230,11 +167,10 @@ body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
   </div>
 </div>
 
-<!-- FILTER -->
 <div class="fstrip" id="fstrip">
   <div class="fpill on" onclick="fc('all',this)">✦ Tất cả</div>
   <div class="fsearch">
-    <span style="color:rgba(212,168,67,.4);font-size:13px">⌕</span>
+    <span style="color:rgba(212,168,67,.38);font-size:13px">⌕</span>
     <input type="text" id="sinput" placeholder="Tìm tên…" oninput="fs(this.value)">
   </div>
   <span class="fcount" id="fcnt"></span>
@@ -242,115 +178,95 @@ body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
 
 <div class="legend" id="legend"></div>
 <div class="cloud-wrap"><div class="cloud-inner" id="cloud"></div></div>
-
 <div id="mag"><canvas id="mag-canvas"></canvas><div id="mag-glass"></div><div class="mag-handle"></div></div>
 <div id="tip"></div>
 
 <div class="hint">
-  <div class="hdot"></div>Di chuột → kính lúp
+  <div class="hdot"></div>Di chuột → kính lúp phóng to
   <div class="hdot"></div>Click lớp → lọc
   <div class="hdot"></div>Gõ tên → tìm kiếm
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// ⚠️  THAY API_URL bằng URL Apps Script của bạn
-// Apps Script → Deploy → New deployment → Web app
-// Execute as: Me · Who has access: Anyone
-// ══════════════════════════════════════════════
-const API_URL = 'https://script.google.com/macros/s/AKfycbyuy1gF3ZKtdeTPMFeNmV64BIcs6vTIVV8o2-H1bB1T6dQ7ZEZrcKk9i0qSK20Ck4hC/exec';
+// ── CONFIG ── Thay URL sau khi deploy Apps Script
+const API_URL = 'https://script.google.com/macros/s/AKfycbzFAInovH9ESoc_6e10TDce1nH8t5r9-0A_7aOK1PqJucwoWZw4M828IL9kWaBAF10qPw/exec';
 
-// ── Cấu hình lớp ──
-const LOP_ORDER = [
-  '12/1','12/2','12/3','12/4','12/5','12/6','12/7','12/8',
-  '12/9','12/10','12 Toán','12 Lý Sinh','12 Hóa','12 Anh','12 Văn Pháp'
-];
-const COLORS = [
-  '#FF7043','#FFA040','#F5C518','#D4A843','#E05540',
-  '#F06292','#FAD4A0','#E8A030','#EF5350','#80CBC4',
-  '#CE93D8','#A5D6A7','#E6EE9C','#90CAF9','#DCEDC8'
-];
-const LOP_IDX = {};
+const LOP_ORDER = ['12/1','12/2','12/3','12/4','12/5','12/6','12/7','12/8','12/9','12/10','12 Toán','12 Lý Sinh','12 Hóa','12 Anh','12 Văn Pháp'];
+const COLORS   = ['#FF7043','#FFA040','#F5C518','#D4A843','#E05540','#F06292','#FFD0A0','#E8A030','#EF5350','#80CBC4','#CE93D8','#A5D6A7','#E8EE6A','#90CAF9','#C8E6A0'];
+const LOP_IDX  = {};
 LOP_ORDER.forEach((l,i) => LOP_IDX[l] = i);
 
-// ── State ──
 let ALL=[], VIS=[], activeC='all', sq='', ITEMS=[], mx=0, my=0;
+let FONT_READY = false; // flag font loaded
 
-// ══ LOAD — JSONP (không bị CORS) ══
+// ── FONT PRELOAD — đảm bảo font load trước khi render canvas ──
+document.fonts.ready.then(() => { FONT_READY = true; });
+
+// ── LOAD DATA (JSONP) ──
 function loadData() {
-  if (!API_URL || API_URL === 'REPLACE_WITH_YOUR_APPS_SCRIPT_URL') {
-    showErr('Chưa điền API_URL. Mở file wordcloud.html, tìm dòng <b>const API_URL</b> và thay bằng URL Apps Script.');
+  if (!API_URL || API_URL.startsWith('REPLACE')) {
+    showErr('Chưa điền API_URL trong file wordcloud.html.<br>Tìm dòng <code>const API_URL</code> và thay bằng URL Apps Script.');
     return;
   }
   const cb = '_cb' + Date.now();
-  const timeout = setTimeout(() => {
+  const timer = setTimeout(() => {
     delete window[cb];
-    const s = document.getElementById('jsonp-s');
+    const s = document.getElementById('_js');
     if (s) s.remove();
-    showErr('API không phản hồi (timeout 10s).<br>Kiểm tra: Deploy đúng chưa? URL đúng chưa?');
-  }, 10000);
+    showErr('Timeout sau 12 giây. Kiểm tra URL và quyền deploy.');
+  }, 12000);
 
   window[cb] = function(res) {
-    clearTimeout(timeout);
+    clearTimeout(timer);
     delete window[cb];
-    document.getElementById('jsonp-s').remove();
-    if (!res || !res.ok) {
-      showErr('API lỗi: ' + (res ? res.error : 'Không có phản hồi'));
-      return;
-    }
-    if (!res.data || res.data.length === 0) {
-      showErr('API trả về 0 bản ghi.<br>Chạy <b>testGetDanhSach()</b> trong Apps Script Editor để debug.');
-      return;
-    }
+    const s = document.getElementById('_js'); if (s) s.remove();
+    if (!res || !res.ok) { showErr('Lỗi API: ' + (res ? res.error : 'không có phản hồi')); return; }
+    if (!res.data || res.data.length === 0) { showErr('API trả về 0 bản ghi.<br>Chạy <b>testGetDanhSach()</b> trong Editor để debug.'); return; }
     init(res.data);
   };
 
   const s = document.createElement('script');
-  s.id = 'jsonp-s';
-  s.onerror = () => { clearTimeout(timeout); showErr('Không tải được script từ Apps Script URL.<br>Kiểm tra URL và quyền deploy.'); };
-  s.src = API_URL + '?callback=' + cb;
+  s.id = '_js';
+  s.onerror = () => { clearTimeout(timer); showErr('Không load được script. Kiểm tra URL Apps Script.'); };
+  s.src = API_URL + '?callback=' + cb + '&t=' + Date.now();
   document.head.appendChild(s);
 }
 
 function showErr(html) {
+  document.querySelector('.spin').style.display = 'none';
+  document.querySelector('.load-title').textContent = 'Không tải được dữ liệu';
   const el = document.getElementById('err-msg');
   el.innerHTML = '❌ ' + html;
   el.style.display = 'block';
-  document.querySelector('.spin').style.display = 'none';
-  document.querySelector('.load-title').textContent = 'Không tải được dữ liệu';
 }
 
-// ══ INIT ══
+// ── INIT ──
 function init(data) {
   ALL = data; VIS = data;
   document.getElementById('h-total').textContent = data.length;
   document.getElementById('h-lop').textContent = new Set(data.map(d => d.lop)).size;
-  document.getElementById('loading').style.display = 'none';
-  buildFilters(); buildLegend(); layout(); initMag(); initCursor();
+  // Đợi font sẵn sàng rồi mới render
+  const go = () => { document.getElementById('loading').style.display = 'none'; buildFilters(); buildLegend(); layout(); initMag(); initCursor(); };
+  if (FONT_READY) go();
+  else document.fonts.ready.then(go);
 }
 
-// ══ FILTERS ══
+// ── FILTERS ──
 function buildFilters() {
-  const strip = document.getElementById('fstrip');
-  const search = strip.querySelector('.fsearch');
+  const strip = document.getElementById('fstrip'), search = strip.querySelector('.fsearch');
   LOP_ORDER.forEach(lop => {
-    const cnt = ALL.filter(d => d.lop === lop).length;
-    if (!cnt) return;
-    const ci = LOP_IDX[lop] ?? 0;
+    const cnt = ALL.filter(d => d.lop === lop).length; if (!cnt) return;
     const p = document.createElement('div');
-    p.className = 'fpill';
-    p.textContent = lop + ' (' + cnt + ')';
-    p.dataset.c = COLORS[ci];
+    p.className = 'fpill'; p.textContent = lop + ' (' + cnt + ')';
+    p.dataset.c = COLORS[LOP_IDX[lop] ?? 0];
     p.onclick = function() { fc(lop, this); };
     strip.insertBefore(p, search);
   });
 }
-
 function buildLegend() {
   const wrap = document.getElementById('legend');
   LOP_ORDER.forEach(lop => {
-    const cnt = ALL.filter(d => d.lop === lop).length;
-    if (!cnt) return;
+    const cnt = ALL.filter(d => d.lop === lop).length; if (!cnt) return;
     const ci = LOP_IDX[lop] ?? 0;
     const d = document.createElement('div');
     d.className = 'litem'; d.dataset.lop = lop;
@@ -364,146 +280,178 @@ function buildLegend() {
     wrap.appendChild(d);
   });
 }
-
 function fc(lop, el) {
   activeC = lop;
-  document.querySelectorAll('.fpill').forEach(p => { p.classList.remove('on'); p.style.background=''; p.style.color=''; });
-  if (el) { el.classList.add('on'); el.style.background = el.dataset.c||''; el.style.color = isLight(el.dataset.c||'') ? '#080402' : '#fff'; }
+  document.querySelectorAll('.fpill').forEach(p => { p.classList.remove('on'); p.style.background = ''; p.style.color = ''; });
+  if (el) { el.classList.add('on'); el.style.background = el.dataset.c || ''; el.style.color = isLight(el.dataset.c || '') ? '#080402' : '#fff'; }
   else if (lop === 'all') document.querySelector('.fpill').classList.add('on');
   document.querySelectorAll('.litem').forEach(i => i.classList.remove('on'));
   if (lop !== 'all') { const li = document.querySelector(`.litem[data-lop="${lop}"]`); if (li) li.classList.add('on'); }
   applyFilter();
 }
-
 function fs(q) { sq = q.trim().toLowerCase(); applyFilter(); }
-
 function applyFilter() {
-  VIS = ALL.filter(d => (activeC==='all'||d.lop===activeC) && (!sq||d.ten.toLowerCase().includes(sq)));
-  const vis = new Set(VIS.map(d => d.ten+'|'+d.lop));
-  ITEMS.forEach(it => { it.el.classList.toggle('dim', !vis.has(it.name+'|'+it.lop)); if (!vis.has(it.name+'|'+it.lop)) it.el.classList.remove('hi'); });
+  VIS = ALL.filter(d => (activeC === 'all' || d.lop === activeC) && (!sq || d.ten.toLowerCase().includes(sq)));
+  const vis = new Set(VIS.map(d => d.ten + '|' + d.lop));
+  ITEMS.forEach(it => { it.el.classList.toggle('dim', !vis.has(it.key)); if (!vis.has(it.key)) it.el.classList.remove('hi'); });
   document.getElementById('fcnt').textContent = VIS.length + ' / ' + ALL.length + ' người';
 }
 
-// ══ LAYOUT ══
+// ── LAYOUT ──
 function layout() {
   const cloud = document.getElementById('cloud');
   cloud.innerHTML = ''; ITEMS = [];
   const W = cloud.offsetWidth, H = cloud.offsetHeight, CX = W/2, CY = H/2;
   const placed = [];
   const lopC = {};
-  ALL.forEach(d => lopC[d.lop] = (lopC[d.lop]||0)+1);
+  ALL.forEach(d => lopC[d.lop] = (lopC[d.lop] || 0) + 1);
   const maxC = Math.max(...Object.values(lopC), 1);
 
   ALL.forEach((d, i) => {
     const ci = LOP_IDX[d.lop] ?? (i % 15);
-    const fs = 12 + Math.round((lopC[d.lop]/maxC)*8) + (Math.random()*5|0);
-    const fw = [700,700,800,800,800,900][Math.floor(Math.random()*6)];
-    const tilt = [-3,-2,-1,-1,0,0,0,0,1,1,2,3][Math.floor(Math.random()*12)];
+    const fs = 12 + Math.round((lopC[d.lop] / maxC) * 8) + (Math.random() * 5 | 0);
+    const fw = [700, 700, 800, 800, 800, 900][Math.floor(Math.random() * 6)];
+    const tilt = [-3,-2,-1,-1,0,0,0,0,1,1,2,3][Math.floor(Math.random() * 12)];
 
     const el = document.createElement('div');
     el.className = `nchip c${ci}`;
-    el.dataset.name = d.ten; el.dataset.lop = d.lop;
     el.innerHTML = `<span class="ntxt" style="font-size:${fs}px;font-weight:${fw};transform:rotate(${tilt}deg)">${d.ten}</span><span class="nbadge">${d.lop}</span>`;
     cloud.appendChild(el);
 
     const w = el.offsetWidth, h = el.offsetHeight;
     let px, py, tries = 0;
-    const a0 = Math.random()*Math.PI*2;
+    const a0 = Math.random() * Math.PI * 2;
     do {
-      const r = 20 + tries*2.5, a = a0 + tries*0.42;
-      px = CX + r*Math.cos(a) - w/2;
-      py = CY + r*Math.sin(a) - h/2;
+      const r = 22 + tries * 2.4, a = a0 + tries * 0.42;
+      px = CX + r * Math.cos(a) - w / 2;
+      py = CY + r * Math.sin(a) - h / 2;
       tries++;
-    } while (tries < 500 && (overlap(px,py,w,h,placed)||px<10||py<10||px+w>W-10||py+h>H-10));
+    } while (tries < 500 && (overlap(px,py,w,h,placed) || px<8 || py<8 || px+w>W-8 || py+h>H-8));
 
-    el.style.left = px+'px'; el.style.top = py+'px';
-    el.style.animation = `floatIn .5s ${(i*.01).toFixed(2)}s both`;
+    el.style.left = px + 'px'; el.style.top = py + 'px';
+    el.style.animation = `floatIn .5s ${(i * .01).toFixed(2)}s both`;
     placed.push({x:px,y:py,w,h});
-    ITEMS.push({el, cx:px+w/2, cy:py+h/2, name:d.ten, lop:d.lop, color:COLORS[ci]});
+    const key = d.ten + '|' + d.lop;
+    ITEMS.push({ el, cx:px+w/2, cy:py+h/2, name:d.ten, lop:d.lop, key, color:COLORS[ci], fs, fw });
   });
   document.getElementById('fcnt').textContent = ALL.length + ' / ' + ALL.length + ' người';
 }
+function overlap(x,y,w,h,p) { return p.some(q => x<q.x+q.w+5 && x+w+5>q.x && y<q.y+q.h+5 && y+h+5>q.y); }
+function isLight(hex) { try{ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return .299*r+.587*g+.114*b>158; }catch{return false;} }
 
-function overlap(x,y,w,h,p) { return p.some(q=>x<q.x+q.w+5&&x+w+5>q.x&&y<q.y+q.h+5&&y+h+5>q.y); }
-function isLight(hex) { try{ const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); return .299*r+.587*g+.114*b>160; }catch{return false;} }
+// ── MAGNIFIER ──
+const MAG_R=120, MAG_Z=2.5;
+let magCtx = null;
 
-// ══ MAGNIFIER ══
-const MAG_R = 115, MAG_Z = 2.5;
 function initMag() {
   const canvas = document.getElementById('mag-canvas');
-  const ctx = canvas.getContext('2d');
+  magCtx = canvas.getContext('2d');
   canvas.width = MAG_R*2; canvas.height = MAG_R*2;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; moveMag(ctx); moveCur(); highlightNear(); });
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; drawMag(); moveCur(); highlightNear(); });
   document.addEventListener('mouseleave', () => document.getElementById('mag').style.display='none');
 }
-function moveMag(ctx) {
+
+function drawMag() {
+  if (!magCtx) return;
   const mag = document.getElementById('mag');
   mag.style.display = 'block';
-  const off = MAG_R+22;
-  let lx=mx+off, ly=my-MAG_R;
-  if(lx+MAG_R*2>window.innerWidth-10) lx=mx-off-MAG_R*2;
-  if(ly<10) ly=10;
-  if(ly+MAG_R*2>window.innerHeight-10) ly=window.innerHeight-MAG_R*2-10;
-  mag.style.left=lx+'px'; mag.style.top=ly+'px';
-  const cloud=document.getElementById('cloud');
-  const rect=cloud.getBoundingClientRect();
-  const sx=mx-rect.left-MAG_R/MAG_Z, sy=my-rect.top-MAG_R/MAG_Z;
-  ctx.clearRect(0,0,MAG_R*2,MAG_R*2);
+  const off = MAG_R + 24;
+  let lx = mx+off, ly = my-MAG_R;
+  if (lx+MAG_R*2 > window.innerWidth-8)  lx = mx-off-MAG_R*2;
+  if (ly < 8)                             ly = 8;
+  if (ly+MAG_R*2 > window.innerHeight-8) ly = window.innerHeight-MAG_R*2-8;
+  mag.style.left = lx+'px'; mag.style.top = ly+'px';
+
+  const cloud = document.getElementById('cloud');
+  const rect  = cloud.getBoundingClientRect();
+  // Tọa độ tâm kính trong hệ cloud
+  const worldX = mx - rect.left;
+  const worldY = my - rect.top;
+  // Source origin (góc trái trên của vùng được phóng to)
+  const sx = worldX - MAG_R/MAG_Z;
+  const sy = worldY - MAG_R/MAG_Z;
+
+  const ctx = magCtx;
+  ctx.clearRect(0, 0, MAG_R*2, MAG_R*2);
+
   ctx.save();
-  ctx.beginPath(); ctx.arc(MAG_R,MAG_R,MAG_R,0,Math.PI*2); ctx.clip();
-  ctx.fillStyle='rgba(8,4,2,.9)'; ctx.fillRect(0,0,MAG_R*2,MAG_R*2);
+  ctx.beginPath(); ctx.arc(MAG_R, MAG_R, MAG_R, 0, Math.PI*2); ctx.clip();
+
+  // Nền tối
+  ctx.fillStyle = 'rgba(8,4,2,.92)'; ctx.fillRect(0,0,MAG_R*2,MAG_R*2);
+
+  // Vẽ từng tên — dùng font "Be Vietnam Pro" đã load sẵn
   ITEMS.forEach(it => {
-    if(it.el.classList.contains('dim')) return;
-    const ix=(it.cx-sx)*MAG_Z, iy=(it.cy-sy)*MAG_Z;
-    if(ix<-100||ix>MAG_R*2+100||iy<-20||iy>MAG_R*2+20) return;
-    const ntxt=it.el.querySelector('.ntxt');
-    const fs=parseFloat(ntxt.style.fontSize)*MAG_Z;
-    ctx.font=`${ntxt.style.fontWeight||700} ${fs}px 'Be Vietnam Pro',sans-serif`;
-    const isHi=it.el.classList.contains('hi');
-    if(isHi){ ctx.shadowColor=it.color; ctx.shadowBlur=16; ctx.fillStyle=it.color; }
-    else { ctx.shadowBlur=0; ctx.fillStyle=it.color+'88'; }
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText(it.name, ix, iy);
-    ctx.shadowBlur=0;
+    if (it.el.classList.contains('dim')) return;
+    // Tọa độ trong canvas kính
+    const cx = (it.cx - sx) * MAG_Z;
+    const cy = (it.cy - sy) * MAG_Z;
+    if (cx < -150 || cx > MAG_R*2+150 || cy < -30 || cy > MAG_R*2+30) return;
+
+    const isHi = it.el.classList.contains('hi');
+    const fsPx = it.fs * MAG_Z;
+    ctx.font = `${it.fw} ${fsPx}px 'Be Vietnam Pro', sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    if (isHi) {
+      // Glow effect khi highlight
+      ctx.shadowColor  = it.color;
+      ctx.shadowBlur   = 20;
+      ctx.fillStyle    = it.color;
+    } else {
+      ctx.shadowBlur   = 0;
+      ctx.fillStyle    = it.color + 'AA'; // hơi mờ
+    }
+    ctx.fillText(it.name, cx, cy);
+    ctx.shadowBlur = 0;
   });
+
   ctx.restore();
 }
+
 function highlightNear() {
-  const cloud=document.getElementById('cloud');
-  const rect=cloud.getBoundingClientRect();
-  const cx=mx-rect.left, cy=my-rect.top;
-  let nearest=null, nd=Infinity;
+  const cloud = document.getElementById('cloud');
+  const rect  = cloud.getBoundingClientRect();
+  const cx    = mx - rect.left, cy = my - rect.top;
+  const NEAR  = 80;
+  let nearest = null, nd = Infinity;
+
   ITEMS.forEach(it => {
-    if(it.el.classList.contains('dim')){ it.el.classList.remove('hi'); return; }
-    const dx=it.cx-cx, dy=it.cy-cy, dist=Math.sqrt(dx*dx+dy*dy);
-    it.el.classList.toggle('hi', dist<75);
-    if(dist<nd){ nd=dist; nearest=it; }
+    if (it.el.classList.contains('dim')) { it.el.classList.remove('hi'); return; }
+    const dx = it.cx-cx, dy = it.cy-cy, dist = Math.sqrt(dx*dx+dy*dy);
+    it.el.classList.toggle('hi', dist < NEAR);
+    if (dist < nd) { nd=dist; nearest=it; }
   });
-  const tip=document.getElementById('tip');
-  if(nearest && nd<38){
-    tip.style.display='block';
-    tip.textContent=nearest.name+' · '+nearest.lop;
-    tip.style.background=nearest.color;
-    tip.style.color=isLight(nearest.color)?'#080402':'#fff';
-    tip.style.left=mx+'px'; tip.style.top=(my-46)+'px';
-    tip.style.boxShadow=`0 4px 22px ${nearest.color}55`;
-  } else { tip.style.display='none'; }
+
+  const tip = document.getElementById('tip');
+  if (nearest && nd < 40) {
+    tip.style.display  = 'block';
+    tip.textContent    = nearest.name + ' · ' + nearest.lop;
+    tip.style.background = nearest.color;
+    tip.style.color    = isLight(nearest.color) ? '#080402' : '#fff';
+    tip.style.left     = mx + 'px';
+    tip.style.top      = (my-48) + 'px';
+    tip.style.boxShadow = `0 4px 24px ${nearest.color}55`;
+  } else {
+    tip.style.display = 'none';
+  }
 }
 
-// ══ CURSOR ══
+// ── CURSOR ──
 function initCursor() {
   const c1=document.getElementById('cur'), c2=document.getElementById('cur2');
   let tx=0, ty=0;
   document.addEventListener('mousemove', e => { c1.style.left=e.clientX+'px'; c1.style.top=e.clientY+'px'; tx=e.clientX; ty=e.clientY; });
-  (function lag(){ const cx=parseFloat(c2.style.left||0), cy=parseFloat(c2.style.top||0); c2.style.left=(cx+(tx-cx)*.11)+'px'; c2.style.top=(cy+(ty-cy)*.11)+'px'; requestAnimationFrame(lag); })();
+  (function lag() { const cx=parseFloat(c2.style.left||0), cy=parseFloat(c2.style.top||0); c2.style.left=(cx+(tx-cx)*.11)+'px'; c2.style.top=(cy+(ty-cy)*.11)+'px'; requestAnimationFrame(lag); })();
 }
-function moveCur(){ document.getElementById('cur').style.left=mx+'px'; document.getElementById('cur').style.top=my+'px'; }
+function moveCur() { document.getElementById('cur').style.left=mx+'px'; document.getElementById('cur').style.top=my+'px'; }
 
-// ══ RESIZE ══
+// ── RESIZE ──
 let rt;
 window.addEventListener('resize', () => { clearTimeout(rt); rt=setTimeout(layout,300); });
 
-// ══ START ══
+// ── START ──
 loadData();
 </script>
 </body>
