@@ -149,6 +149,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
   <div class="spin"></div>
   <div class="load-title">Đang tải danh sách…</div>
   <div class="load-sub">Hội Khóa QH 2003–2006 · Hẹn nhau ngày về</div>
+  <div id="load-progress" style="margin-top:14px;font-size:11px;color:rgba(212,168,67,.5);font-weight:600;letter-spacing:.5px"></div>
   <div id="err-msg"></div>
 </div>
 
@@ -189,7 +190,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;cursor:none;user-select:none}
 
 <script>
 // ── CONFIG ── Thay URL sau khi deploy Apps Script
-const API_URL = 'https://script.google.com/macros/s/AKfycbzFAInovH9ESoc_6e10TDce1nH8t5r9-0A_7aOK1PqJucwoWZw4M828IL9kWaBAF10qPw/exec';
+const API_URL = 'REPLACE_WITH_YOUR_APPS_SCRIPT_URL';
 
 const LOP_ORDER = ['12/1','12/2','12/3','12/4','12/5','12/6','12/7','12/8','12/9','12/10','12 Toán','12 Lý Sinh','12 Hóa','12 Anh','12 Văn Pháp'];
 const COLORS   = ['#FF7043','#FFA040','#F5C518','#D4A843','#E05540','#F06292','#FFD0A0','#E8A030','#EF5350','#80CBC4','#CE93D8','#A5D6A7','#E8EE6A','#90CAF9','#C8E6A0'];
@@ -211,12 +212,20 @@ function loadData() {
   const cb = '_cb' + Date.now();
   const timer = setTimeout(() => {
     delete window[cb];
+    clearInterval(progTimer);
     const s = document.getElementById('_js');
     if (s) s.remove();
-    showErr('Timeout sau 12 giây. Kiểm tra URL và quyền deploy.');
-  }, 12000);
+    showErr('Timeout sau 30 giây. API đọc sheet quá lâu.<br>Hãy chạy <b>testGetDanhSach()</b> trong Apps Script Editor để kiểm tra.');
+  }, 30000);
+
+  // Progress messages
+  const msgs = ['Đang kết nối API…','Đang đọc danh sách…','Đang xử lý dữ liệu…','Sắp xong rồi…'];
+  let mi = 0;
+  const prog = document.getElementById('load-progress');
+  const progTimer = setInterval(() => { if(prog) prog.textContent = msgs[mi++ % msgs.length]; }, 3000);
 
   window[cb] = function(res) {
+    clearInterval(progTimer);
     clearTimeout(timer);
     delete window[cb];
     const s = document.getElementById('_js'); if (s) s.remove();
