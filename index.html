@@ -233,6 +233,119 @@ input[type=text]:focus { outline:none; border-color:var(--red); background:#fff 
 .li { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--t2); font-weight:500 }
 .ld { width:10px; height:10px; border-radius:3px; flex-shrink:0 }
 
+/* ─── MILESTONE (MỐC TÀI TRỢ) ─── */
+.moc-card {
+  background: linear-gradient(160deg, #FDF8F0 0%, #FAF1E0 60%, #F5E8CC 100%);
+  border:1.5px solid var(--border); border-radius:var(--r-lg);
+  padding:24px 28px 22px; margin-bottom:11px;
+  box-shadow: 0 3px 20px rgba(139,26,26,.09);
+  position:relative; overflow:hidden;
+}
+.moc-card::before {
+  content:''; position:absolute; top:-70px; right:-50px;
+  width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(circle, rgba(201,168,76,.1), transparent 70%); pointer-events:none;
+}
+.moc-eyebrow {
+  font-size:9.5px; font-weight:800; letter-spacing:3.5px; text-transform:uppercase;
+  color:var(--gold); text-align:center; margin-bottom:10px; opacity:.85;
+}
+.moc-amt-row { display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:6px; flex-wrap:wrap }
+.moc-ribbon {
+  background:var(--red); color:#fff; font-size:12px; font-weight:800;
+  padding:6px 16px 6px 14px; letter-spacing:1px; text-transform:uppercase;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+  box-shadow:0 2px 8px rgba(139,26,26,.25);
+}
+.moc-amt {
+  font-family:'Playfair Display',serif; font-size:44px; font-weight:900;
+  color:var(--red); line-height:1; letter-spacing:-1px;
+  text-shadow:0 2px 0 rgba(139,26,26,.08);
+}
+.moc-amt small { font-size:18px; font-weight:700; color:var(--brown); letter-spacing:0 }
+.moc-target { text-align:center; font-size:12.5px; color:var(--brown); font-weight:600; margin-bottom:18px }
+.moc-target strong { color:var(--ok) }
+.moc-target .thieu { color:var(--warn); font-weight:800 }
+
+/* thanh tiến độ gradient + bubble */
+.moc-track-wrap { position:relative; margin:34px 8px 40px }
+.moc-track {
+  height:18px; border-radius:10px; background:#EDE6D6;
+  border:1px solid var(--border); overflow:hidden; position:relative;
+  box-shadow: inset 0 1px 3px rgba(92,46,10,.12);
+}
+.moc-fill {
+  height:100%; border-radius:9px 0 0 9px;
+  background: linear-gradient(90deg, #2E7D32 0%, #C9A84C 45%, #D97706 70%, #B91C1C 100%);
+  background-size: var(--moc-bg-size, 100%) 100%;
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.moc-fill::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.35), transparent 50%);
+  border-radius:inherit;
+}
+.moc-bubble {
+  position:absolute; top:-32px; transform:translateX(-50%);
+  background:var(--red); color:#fff; font-size:12px; font-weight:800;
+  padding:3px 10px; border-radius:14px; white-space:nowrap;
+  box-shadow:0 2px 8px rgba(139,26,26,.3);
+  transition:left 1s cubic-bezier(.4,0,.2,1);
+}
+.moc-bubble::after {
+  content:''; position:absolute; left:50%; bottom:-5px; transform:translateX(-50%);
+  border:6px solid transparent; border-top-color:var(--red); border-bottom:none;
+}
+.moc-tick {
+  position:absolute; top:-4px; bottom:-4px; width:2px;
+  background:rgba(92,46,10,.35); transform:translateX(-50%);
+}
+.moc-tick.done { background:var(--ok) }
+.moc-tick-lbl {
+  position:absolute; top:24px; transform:translateX(-50%);
+  font-size:10px; font-weight:700; color:var(--t3); white-space:nowrap;
+  text-align:center; line-height:1.3;
+}
+.moc-tick-lbl b { display:block; font-size:11px; color:var(--brown) }
+.moc-tick-lbl.done b { color:var(--ok) }
+
+/* hàng 3 mốc */
+.moc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:8px }
+.moc-item {
+  background:#fff; border:1.5px solid var(--border); border-radius:14px;
+  padding:14px 14px 12px; display:flex; align-items:center; gap:12px;
+  position:relative; overflow:hidden; transition:transform .18s, box-shadow .18s;
+}
+.moc-item:hover { transform:translateY(-2px); box-shadow:var(--sh-lg) }
+.moc-item.done   { border-color:rgba(46,125,50,.45); background:linear-gradient(160deg,#fff,#F4FBF4) }
+.moc-item.active { border-color:rgba(201,168,76,.7);  background:linear-gradient(160deg,#fff,#FDF8EA);
+  box-shadow:0 0 0 3px rgba(201,168,76,.14) }
+.moc-item.lock   { opacity:.78 }
+.moc-ring { position:relative; width:54px; height:54px; flex-shrink:0 }
+.moc-ring svg { transform:rotate(-90deg) }
+.moc-ring .pctxt {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800;
+}
+.moc-item.done .pctxt { color:var(--ok) } .moc-item.active .pctxt { color:var(--warn) } .moc-item.lock .pctxt { color:var(--t3) }
+.moc-it-name { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--t3) }
+.moc-it-amt { font-family:'Playfair Display',serif; font-size:19px; font-weight:900; color:var(--t1); line-height:1.15; margin:2px 0 3px }
+.moc-st { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:800; padding:2px 9px; border-radius:20px }
+.moc-st.s-done   { background:var(--okbg);  color:var(--ok) }
+.moc-st.s-active { background:var(--warnbg);color:var(--warn) }
+.moc-st.s-lock   { background:var(--cream2);color:var(--t3) }
+.moc-cele {
+  margin-top:14px; text-align:center; font-size:13px; font-weight:700; color:var(--brown);
+  padding:10px 14px; background:rgba(255,255,255,.6); border:1px dashed var(--gold);
+  border-radius:12px;
+}
+.moc-cele strong { color:var(--red) }
+
+@media (prefers-reduced-motion: reduce) {
+  .moc-fill, .moc-bubble, .kbf, .bpf, .bf { transition:none }
+}
+
 /* ─── UTILS ─── */
 .loading { text-align:center; padding:28px; color:var(--t3); font-size:13px }
 .empty { text-align:center; padding:22px; color:var(--t3); font-size:12px; border:1.5px dashed var(--border); border-radius:10px }
@@ -247,6 +360,10 @@ input[type=text]:focus { outline:none; border-color:var(--red); background:#fff 
   .cd-n { font-size:52px } .cd-sm { font-size:38px; min-width:62px }
   .cd-unit { min-width:82px; padding:13px 16px 10px }
   input[type=number] { width:50px }
+  .moc-grid { grid-template-columns:1fr }
+  .moc-amt { font-size:32px }
+  .moc-tick-lbl { font-size:8.5px }
+  .moc-tick-lbl b { font-size:9.5px }
 }
 </style>
 </head>
@@ -356,6 +473,28 @@ input[type=text]:focus { outline:none; border-color:var(--red); background:#fff 
 
 <!-- TÀI TRỢ -->
 <div class="panel" id="p-tt">
+
+  <!-- MỐC TIẾN ĐỘ TÀI TRỢ -->
+  <div class="moc-card" id="moc-card">
+    <div class="moc-eyebrow">🤝 Cập nhật tiến độ vận động tài trợ</div>
+    <div class="moc-amt-row">
+      <span class="moc-ribbon">Đã đạt</span>
+      <span class="moc-amt" id="moc-amt">--<small> đ</small></span>
+    </div>
+    <div class="moc-target" id="moc-target">Đang tải…</div>
+
+    <div class="moc-track-wrap">
+      <div class="moc-bubble" id="moc-bubble" style="left:0%">0%</div>
+      <div class="moc-track">
+        <div class="moc-fill" id="moc-fill" style="width:0%"></div>
+      </div>
+      <div id="moc-ticks"></div>
+    </div>
+
+    <div class="moc-grid" id="moc-grid"></div>
+    <div class="moc-cele" id="moc-cele" style="display:none"></div>
+  </div>
+
   <div class="g2">
     <div class="card"><div class="cht">Danh sách tài trợ</div><div id="tt-l"><div class="loading">…</div></div></div>
     <div class="card"><div class="cht">Phân bổ theo hạng</div><div class="cw"><canvas id="c-d2"></canvas></div><div class="leg" id="tt-leg"></div></div>
@@ -376,6 +515,13 @@ input[type=text]:focus { outline:none; border-color:var(--red); background:#fff 
 <script>
 // ── CONFIG ── Thay bằng URL Apps Script API của bạn
 const API_URL = 'https://script.google.com/macros/s/AKfycbz0BNIIVCZ2GnmVnuHwEx6tuSQUEU-800G5uwdtTPsMWaT00ZS6oHGXSmoR4lFZECPIXw/exec';
+
+// ── MỐC TÀI TRỢ ── Sửa số tiền/tên mốc tại đây, dashboard tự tính lại toàn bộ
+const MOCS = [
+  { ten: 'Mốc 1', muc: 100000000 },
+  { ten: 'Mốc 2', muc: 150000000 },
+  { ten: 'Mốc 3', muc: 200000000 },
+];
 
 let D = null, CH = {};
 const HC = {'Kim Cương':'#FEF9E7','Vàng':'#FEF3C7','Bạc':'#F3F4F6','Đồng':'#FFFDE7','Ủng hộ':'#ECFDF5'};
@@ -413,10 +559,8 @@ function sw(el, id) {
 function loadData() {
   st('sync','Đang tải…');
   const errEl = $('err'); if(errEl) errEl.style.display='none';
-  // Xóa script tag cũ nếu có
   const old = document.getElementById('jsonp-script');
   if (old) old.remove();
-  // Tạo callback name duy nhất
   const cb = '_cb_' + Date.now();
   window[cb] = function(data) {
     delete window[cb];
@@ -447,7 +591,7 @@ function renderAll() {
   st('sync','Cập nhật '+D.updated);
   st('k-dk',dk.tongDK); sb('k-dkb',pct(dk.tongDK,350));
   st('k-nop',dk.daNop); st('k-nops',fmtM(dk.tienThu)); sb('k-nopb',pct(dk.daNop,dk.tongDK));
-  st('k-tt',fmtM(tt.tong)); st('k-tts',tt.soNha+' nhà tài trợ'); sb('k-ttb',Math.min(100,pct(tt.tong,1e8)));
+  st('k-tt',fmtM(tt.tong)); st('k-tts',tt.soNha+' nhà tài trợ'); sb('k-ttb',Math.min(100,pct(tt.tong,MOCS[MOCS.length-1].muc)));
   st('k-td',td.done+'/'+td.total); sb('k-tdb',pct(td.done,td.total));
   render('dk');
 }
@@ -525,7 +669,6 @@ function saveData() {
   };
   const script = document.createElement('script');
   script.id = 'save-script';
-  // Encode rows vào URL params
   script.src = API_URL + '?action=saveDangKy&callback=' + cb + '&rows=' + encodeURIComponent(JSON.stringify(rows));
   document.head.appendChild(script);
 }
@@ -547,9 +690,94 @@ function rTC() {
   CH.btc = new Chart($('c-btc'),{type:'bar',data:{labels:D.dangky.byLop.map(l=>l.lop),datasets:[{label:'Đã thu',data:D.dangky.byLop.map(l=>l.daNop*500000),backgroundColor:'#8B1A1A',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:10},maxRotation:45}},y:{ticks:{callback:v=>v/1e6+'M'}}}}});
 }
 
+// ── MỐC TIẾN ĐỘ TÀI TRỢ ──
+function ring(p, color) {
+  // vòng tròn % SVG, r=23, chu vi ≈ 144.5
+  const C = 2 * Math.PI * 23;
+  const off = C * (1 - Math.min(100, p) / 100);
+  return `<svg width="54" height="54" viewBox="0 0 54 54">
+    <circle cx="27" cy="27" r="23" fill="none" stroke="#EDE6D6" stroke-width="5"/>
+    <circle cx="27" cy="27" r="23" fill="none" stroke="${color}" stroke-width="5"
+      stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"
+      style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+  </svg>`;
+}
+
+function rMoc(tong) {
+  const maxM = MOCS[MOCS.length - 1].muc;            // mốc cao nhất = 100% thanh
+  const next = MOCS.find(m => tong < m.muc);          // mốc đang vận động
+  const posOverall = Math.min(100, tong / maxM * 100);
+
+  // Số tiền lớn
+  $('moc-amt').innerHTML = new Intl.NumberFormat('vi-VN').format(tong) + '<small> đ</small>';
+
+  // Dòng mục tiêu
+  if (next) {
+    const thieu = next.muc - tong;
+    const pNext = pct(tong, next.muc);
+    $('moc-target').innerHTML =
+      `Mục tiêu hiện tại: <strong>${fmt(next.muc)}</strong> (${next.ten}) · đã đạt <strong>${pNext}%</strong> · còn thiếu <span class="thieu">${fmt(thieu)}</span>`;
+    $('moc-bubble').textContent = pNext + '%';
+  } else {
+    $('moc-target').innerHTML =
+      `🎉 Đã vượt mốc cao nhất <strong>${fmt(maxM)}</strong> — cảm ơn sự đồng hành của tất cả các bạn!`;
+    $('moc-bubble').textContent = '100%+';
+  }
+
+  // Thanh gradient: fill theo vị trí trên thang 0 → mốc cao nhất
+  const fill = $('moc-fill');
+  fill.style.width = posOverall + '%';
+  // gradient cố định theo cả thanh, không co theo fill
+  fill.style.setProperty('--moc-bg-size', posOverall > 0 ? (100 / posOverall * 100) + '%' : '100%');
+  $('moc-bubble').style.left = Math.max(4, Math.min(96, posOverall)) + '%';
+
+  // Vạch mốc trên thanh
+  $('moc-ticks').innerHTML = MOCS.map(m => {
+    const x = m.muc / maxM * 100;
+    const done = tong >= m.muc;
+    return `<div class="moc-tick ${done?'done':''}" style="left:${x}%"></div>
+      <div class="moc-tick-lbl ${done?'done':''}" style="left:${x}%"><b>${fmtM(m.muc)}</b>${m.ten}</div>`;
+  }).join('');
+
+  // 3 thẻ mốc
+  $('moc-grid').innerHTML = MOCS.map(m => {
+    const p = pct(tong, m.muc);
+    const done = tong >= m.muc;
+    const active = !done && next && next.muc === m.muc;
+    const cls = done ? 'done' : active ? 'active' : 'lock';
+    const color = done ? '#2E7D32' : active ? '#C9A84C' : '#C8BCA0';
+    const stt = done
+      ? '<span class="moc-st s-done">✓ Hoàn thành</span>'
+      : active
+        ? '<span class="moc-st s-active">⏳ Đang vận động</span>'
+        : '<span class="moc-st s-lock">🔒 Chưa mở</span>';
+    return `<div class="moc-item ${cls}">
+      <div class="moc-ring">${ring(p, color)}<div class="pctxt">${Math.min(100,p)}%</div></div>
+      <div>
+        <div class="moc-it-name">${m.ten}</div>
+        <div class="moc-it-amt">${fmt(m.muc)}</div>
+        ${stt}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Dòng động viên khi vừa qua một mốc / sắp chạm mốc
+  const cele = $('moc-cele');
+  if (next && pct(tong, next.muc) >= 90) {
+    cele.style.display = 'block';
+    cele.innerHTML = `🔥 Gần chạm mốc <strong>${fmt(next.muc)}</strong>! Chỉ còn <strong>${fmt(next.muc - tong)}</strong> nữa — mọi sự ủng hộ đều là nguồn động viên lớn!`;
+  } else if (!next) {
+    cele.style.display = 'block';
+    cele.innerHTML = `🏆 Toàn bộ các mốc đã hoàn thành. <strong>Hẹn nhau ngày về!</strong>`;
+  } else {
+    cele.style.display = 'none';
+  }
+}
+
 // ── TÀI TRỢ ──
 function rTT() {
   const {rows,tong,soNha}=D.tailtro;
+  rMoc(tong || 0);
   $('tt-l').innerHTML = rows.length
     ? rows.map(r=>`
         <div class="spr">
