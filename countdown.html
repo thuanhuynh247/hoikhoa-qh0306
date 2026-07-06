@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hội Khóa QH 2003–2006 · Hẹn Nhau Ngày Về</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#D4A843; --gold2:#F0C96A; --gold3:#F7E3A8;
+  --red:#8B1A1A; --cream:#FAF0DC; --dark:#0A0603;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--dark);color:var(--cream)}
+
+/* ═══ BACKDROP (nền mờ full màn hình) ═══ */
+.backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--dark)}
+.bd-layer{
+  position:absolute;inset:-40px;
+  background-size:cover;background-position:center;
+  filter:blur(38px) brightness(.42) saturate(1.15);
+  opacity:0;transform:scale(1.15);
+  transition:opacity 1.6s ease-in-out;
+}
+.bd-layer.active{opacity:1}
+.backdrop::after{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 85% 75% at 50% 42%,rgba(10,6,3,.25) 0%,rgba(10,6,3,.62) 62%,rgba(10,6,3,.9) 100%),
+    linear-gradient(180deg,rgba(10,6,3,.82) 0%,rgba(10,6,3,.35) 22%,rgba(10,6,3,.32) 55%,rgba(10,6,3,.68) 82%,rgba(10,6,3,.95) 100%);
+}
+.backdrop::before{
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ═══ FRAME (khung ảnh nét ở giữa, KHÔNG crop) ═══ */
+.photo-stage{
+  position:fixed;left:50%;top:calc(50% + 26px);transform:translate(-50%,-50%);
+  z-index:10;
+  width:min(48vw, 46vh);height:min(48vw, 46vh);
+  max-width:460px;max-height:460px;
+  pointer-events:none;
+}
+.photo-card{
+  position:absolute;inset:0;
+  border-radius:8px;overflow:hidden;background:#150d05;
+  border:1px solid rgba(212,168,67,.25);
+  box-shadow:
+    0 0 0 6px rgba(250,240,220,.06),
+    0 30px 80px rgba(0,0,0,.6),
+    0 10px 30px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  opacity:0;transform:scale(.94) translateY(12px);
+  transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);
+}
+.photo-card.active{opacity:1;transform:scale(1) translateY(0)}
+.photo-card.exit{opacity:0;transform:scale(1.04) translateY(-8px);transition:opacity .8s ease, transform .8s ease}
+.photo-card img{width:100%;height:100%;object-fit:contain;background:#0f0a05;display:block}
+.photo-card::after{content:'';position:absolute;inset:0;border-radius:8px;pointer-events:none;box-shadow:inset 0 0 40px rgba(0,0,0,.4)}
+
+/* ═══ CLASS BADGE ═══ */
+.photo-badge{
+  position:absolute;left:50%;bottom:-16px;transform:translateX(-50%) translateY(8px);
+  z-index:12;
+  background:linear-gradient(135deg,var(--red),#A52020);
+  border:1px solid rgba(212,168,67,.5);border-radius:24px;padding:7px 22px;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+  opacity:0;transition:opacity .8s ease .2s, transform .8s ease .2s;white-space:nowrap;
+}
+.photo-badge.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.photo-badge .pb-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);opacity:.85}
+.photo-badge .pb-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:900;color:#fff;line-height:1;margin-top:1px}
+
+/* ═══ HEADER ═══ */
+.header{position:fixed;top:0;left:0;right:0;z-index:30;padding:16px 32px 0;text-align:center}
+.hdr-emblem{width:48px;height:48px;border-radius:50%;margin:0 auto 9px;border:2px solid rgba(212,168,67,.5);background:rgba(212,168,67,.08);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1)}
+.hdr-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:900;color:var(--cream);letter-spacing:.5px;line-height:1.1;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.hdr-sub{font-size:11px;font-weight:500;color:rgba(250,240,220,.62);margin-top:5px;letter-spacing:1px}
+.hdr-motto{display:inline-block;margin-top:10px;padding:4px 18px;border:1px solid rgba(212,168,67,.35);border-radius:22px;background:rgba(10,6,3,.4);backdrop-filter:blur(8px);font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:600;color:var(--gold2);letter-spacing:1px}
+
+/* ═══ COUNTDOWN ═══ */
+.countdown-zone{position:fixed;left:50%;bottom:52px;transform:translateX(-50%);z-index:25;text-align:center;width:100%;padding:0 20px}
+.cd-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.85;margin-bottom:14px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.cd-grid{display:flex;align-items:stretch;justify-content:center;gap:10px}
+.cd-unit{position:relative;background:rgba(10,6,3,.6);backdrop-filter:blur(14px);border:1.5px solid rgba(212,168,67,.3);border-radius:16px;padding:14px 20px 10px;min-width:92px;box-shadow:0 8px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden}
+.cd-unit::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,rgba(212,168,67,.6),transparent)}
+.cd-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:900;color:var(--gold2);line-height:1;letter-spacing:-1px;text-shadow:0 2px 20px rgba(212,168,67,.3);font-variant-numeric:tabular-nums}
+.cd-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(250,240,220,.6);margin-top:8px}
+.cd-colon{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:900;color:var(--gold);align-self:center;margin-bottom:16px;opacity:.55;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.55}50%{opacity:.18}}
+.cd-event{margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--cream);letter-spacing:.5px;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.cd-event strong{color:var(--gold2)}
+
+/* ═══ PROGRESS + COUNTER ═══ */
+.slide-progress{position:fixed;top:0;left:0;height:3px;z-index:35;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;box-shadow:0 0 10px rgba(212,168,67,.6)}
+.img-counter{position:fixed;top:18px;right:22px;z-index:30;font-size:11px;font-weight:600;color:rgba(250,240,220,.5);background:rgba(10,6,3,.5);backdrop-filter:blur(8px);padding:5px 12px;border-radius:14px;border:1px solid rgba(212,168,67,.15);font-variant-numeric:tabular-nums}
+
+/* ═══ CORNERS ═══ */
+.corner{position:fixed;width:66px;height:66px;z-index:15;pointer-events:none;opacity:.35}
+.corner svg{width:100%;height:100%;stroke:var(--gold);stroke-width:1.5;fill:none}
+.corner.tl{top:12px;left:12px}
+.corner.bl{bottom:12px;left:12px;transform:scaleY(-1)}
+.corner.br{bottom:12px;right:12px;transform:scale(-1)}
+
+/* ═══ LOADING ═══ */
+#loading{position:fixed;inset:0;z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--dark)}
+.spin{width:44px;height:44px;border-radius:50%;border:2px solid rgba(212,168,67,.18);border-top-color:var(--gold);animation:spin .8s linear infinite;margin-bottom:16px}
+.load-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:.5px}
+.load-sub{font-size:11px;color:rgba(250,240,220,.4);margin-top:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:680px){
+  .hdr-title{font-size:21px}
+  .hdr-emblem{width:40px;height:40px;font-size:18px}
+  .photo-stage{width:min(74vw,52vh);height:min(74vw,52vh);top:calc(50% - 8px)}
+  .cd-grid{gap:6px}
+  .cd-unit{min-width:60px;padding:10px 7px 8px;border-radius:12px}
+  .cd-num{font-size:32px}
+  .cd-colon{font-size:24px;margin-bottom:12px}
+  .cd-lbl{font-size:8px;letter-spacing:1px}
+  .cd-event{font-size:13px}
+  .photo-badge .pb-name{font-size:18px}
+  .corner{width:40px;height:40px}
+  .countdown-zone{bottom:32px}
+}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spin"></div>
+  <div class="load-title">Hội Khóa Quốc Học 2003–2006</div>
+  <div class="load-sub" id="loadSub">Đang tải hình ảnh…</div>
+</div>
+
+<div class="slide-progress" id="slideProgress"></div>
+
+<div class="backdrop" id="backdrop">
+  <div class="bd-layer" id="bd0"></div>
+  <div class="bd-layer" id="bd1"></div>
+</div>
+
+<div class="corner tl"><svg viewBox="0 0 66 66"><path d="M2 33 Q2 2 33 2 M2 21 Q2 2 21 2"/><circle cx="7" cy="7" r="2"/></svg></div>
+<div class="corner bl"><svg viewBox="0 0 66 66"><path d="M2 33 Q2 2 33 2 M2 21 Q2 2 21 2"/><circle cx="7" cy="7" r="2"/></svg></div>
+<div class="corner br"><svg viewBox="0 0 66 66"><path d="M2 33 Q2 2 33 2 M2 21 Q2 2 21 2"/><circle cx="7" cy="7" r="2"/></svg></div>
+
+<div class="img-counter" id="imgCounter">0 / 0</div>
+
+<div class="header">
+  <div class="hdr-emblem">🎓</div>
+  <div class="hdr-title">Hội Khóa Quốc Học 2003–2006</div>
+  <div class="hdr-sub">THPT CHUYÊN QUỐC HỌC HUẾ · NIÊN KHÓA 2003–2006</div>
+  <div class="hdr-motto">"Hẹn nhau ngày về"</div>
+</div>
+
+<div class="photo-stage">
+  <div class="photo-card" id="card0"><img id="img0" alt=""></div>
+  <div class="photo-card" id="card1"><img id="img1" alt=""></div>
+  <div class="photo-badge" id="photoBadge">
+    <div class="pb-lbl">Lớp</div>
+    <div class="pb-name" id="pbName">12/1</div>
+  </div>
+</div>
+
+<div class="countdown-zone">
+  <div class="cd-eyebrow">⏳ Đếm ngược đến ngày hội ngộ</div>
+  <div class="cd-grid">
+    <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl">Ngày</div></div>
+    <div class="cd-colon">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">Giờ</div></div>
+    <div class="cd-colon">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">Phút</div></div>
+    <div class="cd-colon">:</div>
+    <div class="cd-unit"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">Giây</div></div>
+  </div>
+  <div class="cd-event">Thứ Bảy · <strong>06:30 sáng · 18 tháng 7 năm 2026</strong></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  CẤU HÌNH
+// ══════════════════════════════════════════════════════
+const IMAGE_BASE     = 'images/';
+const MANIFEST_URL   = 'images.json';
+const SLIDE_DURATION = 5500;
+const TARGET         = new Date('2026-07-18T06:30:00+07:00');
+const FALLBACK_IMG   = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg/1280px-Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg';
+
+let PHOTOS = [], idx = 0, flip = 0, timer = null;
+
+// ══ LOAD MANIFEST ══
+// images.json 2 dạng chấp nhận:
+//   Dạng A: { "12/2": ["a.jpg","b.jpg"], "12 Toán": ["x.jpg"] }
+//   Dạng B: [ {"lop":"12/2","file":"12-2/a.jpg"}, ... ]
+async function loadManifest() {
+  try {
+    const res = await fetch(MANIFEST_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const list = [];
+
+    if (Array.isArray(data)) {
+      data.forEach(it => { if (it.file && it.lop) list.push({ url: IMAGE_BASE + it.file, lop: it.lop }); });
+    } else {
+      Object.keys(data).forEach(lop => {
+        const folder = lopToFolder(lop);
+        (data[lop] || []).forEach(file => {
+          const path = file.includes('/') ? file : folder + '/' + file;
+          list.push({ url: IMAGE_BASE + path, lop });
+        });
+      });
+    }
+    if (!list.length) throw new Error('Manifest rỗng');
+    PHOTOS = shuffle(list);
+    start();
+  } catch (e) {
+    console.warn('images.json lỗi:', e.message, '→ ảnh dự phòng');
+    PHOTOS = [{ url: FALLBACK_IMG, lop: 'Quốc Học Huế' }];
+    start();
+  }
+}
+
+function lopToFolder(lop) {
+  return lop.toLowerCase().replace(/\//g,'-').replace(/\s+/g,'-')
+    .replace(/á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g,'a')
+    .replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/g,'e')
+    .replace(/í|ì|ỉ|ĩ|ị/g,'i')
+    .replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/g,'o')
+    .replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/g,'u')
+    .replace(/ý|ỳ|ỷ|ỹ|ỵ/g,'y').replace(/đ/g,'d');
+}
+
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+// ══ START ══
+function start() {
+  document.getElementById('imgCounter').textContent = '1 / ' + PHOTOS.length;
+  preload(PHOTOS[0].url, () => {
+    document.getElementById('loading').style.display = 'none';
+    showPhoto(0, true);
+    scheduleNext();
+  });
+}
+function preload(url, cb){ const im=new Image(); im.onload=cb; im.onerror=cb; im.src=url; }
+
+// ══ SHOW PHOTO (double buffer) ══
+function showPhoto(i, first) {
+  const photo = PHOTOS[i];
+  const nf = first ? 0 : (flip ^ 1);
+  const card = document.getElementById('card'+nf);
+  const imgEl = document.getElementById('img'+nf);
+  const bd = document.getElementById('bd'+nf);
+  const oldCard = document.getElementById('card'+flip);
+  const oldBd = document.getElementById('bd'+flip);
+
+  imgEl.src = photo.url;
+  bd.style.backgroundImage = `url('${photo.url}')`;
+
+  const badge = document.getElementById('photoBadge');
+  badge.classList.remove('show');
+
+  const apply = () => {
+    bd.classList.add('active');
+    if (oldBd && oldBd !== bd) oldBd.classList.remove('active');
+    if (!first && oldCard && oldCard !== card) {
+      oldCard.classList.remove('active');
+      oldCard.classList.add('exit');
+      setTimeout(() => oldCard.classList.remove('exit'), 900);
+    }
+    card.classList.add('active');
+    setTimeout(() => {
+      document.getElementById('pbName').textContent = photo.lop;
+      badge.classList.add('show');
+    }, 450);
+    flip = nf;
+  };
+
+  if (imgEl.complete && imgEl.naturalWidth) apply();
+  else { imgEl.onload = apply; imgEl.onerror = apply; }
+
+  document.getElementById('imgCounter').textContent = (i+1) + ' / ' + PHOTOS.length;
+  runProgress();
+
+  const nextIdx = (i+1) % PHOTOS.length;
+  preload(PHOTOS[nextIdx].url, () => {});
+}
+
+function scheduleNext() {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    idx = (idx + 1) % PHOTOS.length;
+    showPhoto(idx, false);
+    scheduleNext();
+  }, SLIDE_DURATION);
+}
+
+function runProgress() {
+  const p = document.getElementById('slideProgress');
+  p.style.transition = 'none'; p.style.width = '0';
+  requestAnimationFrame(() => { p.style.transition = `width ${SLIDE_DURATION}ms linear`; p.style.width = '100%'; });
+}
+
+// ══ COUNTDOWN ══
+function pad(n){ return String(n).padStart(2,'0'); }
+function tick() {
+  let diff = TARGET - new Date();
+  if (diff < 0) diff = 0;
+  document.getElementById('cd-d').textContent = pad(Math.floor(diff/86400000));
+  document.getElementById('cd-h').textContent = pad(Math.floor((diff%86400000)/3600000));
+  document.getElementById('cd-m').textContent = pad(Math.floor((diff%3600000)/60000));
+  document.getElementById('cd-s').textContent = pad(Math.floor((diff%60000)/1000));
+  if (diff === 0) document.querySelector('.cd-eyebrow').textContent = '🎉 Ngày hội ngộ đã đến!';
+}
+
+tick();
+setInterval(tick, 1000);
+loadManifest();
+</script>
+</body>
+</html>
