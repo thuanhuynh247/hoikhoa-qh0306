@@ -202,25 +202,44 @@ async function loadManifest() {
     const data = await res.json();
     const list = [];
 
+    const seen = new Set();               // chống trùng file
+    const BAD_EXT = /\.(bmp)$/i;           // trình duyệt không hiển thị BMP
+
+    const pushImg = (folder, file, lop) => {
+      if (!file) return;
+      if (BAD_EXT.test(file)) return;      // bỏ file BMP
+      const rawPath = file.includes('/') ? file : folder + '/' + file;
+      const dedupeKey = lop + '||' + rawPath;
+      if (seen.has(dedupeKey)) return;     // bỏ file trùng
+      seen.add(dedupeKey);
+      list.push({ url: buildUrl(rawPath), lop });
+    };
+
     if (Array.isArray(data)) {
-      data.forEach(it => { if (it.file && it.lop) list.push({ url: IMAGE_BASE + it.file, lop: it.lop }); });
+      data.forEach(it => { if (it.file && it.lop) pushImg(lopToFolder(it.lop), it.file, it.lop); });
     } else {
       Object.keys(data).forEach(lop => {
         const folder = lopToFolder(lop);
-        (data[lop] || []).forEach(file => {
-          const path = file.includes('/') ? file : folder + '/' + file;
-          list.push({ url: IMAGE_BASE + path, lop });
-        });
+        (data[lop] || []).forEach(file => pushImg(folder, file, lop));
       });
     }
     if (!list.length) throw new Error('Manifest rỗng');
+    console.log('✅ Đã nạp ' + list.length + ' ảnh từ images.json');
     PHOTOS = shuffle(list);
     start();
   } catch (e) {
-    console.warn('images.json lỗi:', e.message, '→ ảnh dự phòng');
+    console.error('❌ Lỗi đọc images.json:', e.message);
+    console.error('   Kiểm tra: file images.json đã lên GitHub chưa? Đúng cú pháp JSON chưa?');
     PHOTOS = [{ url: FALLBACK_IMG, lop: 'Quốc Học Huế' }];
     start();
   }
+}
+
+// Ghép URL an toàn: mã hóa từng đoạn (khoảng trắng, ngoặc, dấu tiếng Việt)
+// nhưng GIỮ dấu "/" để không phá cấu trúc thư mục
+function buildUrl(relPath) {
+  const encoded = relPath.split('/').map(seg => encodeURIComponent(seg)).join('/');
+  return IMAGE_BASE + encoded;
 }
 
 function lopToFolder(lop) {
