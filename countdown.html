@@ -31,11 +31,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
 .bd-layer{
   position:absolute;inset:-40px;
   background-size:cover;background-position:center;
-  filter:blur(42px) brightness(.9) saturate(1.1);
+  filter:blur(48px) brightness(.92) saturate(1.12);
   opacity:0;transform:scale(1.15);
-  transition:opacity 1.6s ease-in-out;
+  transition:opacity 2s ease-in-out;
 }
-.bd-layer.active{opacity:.35}
+.bd-layer.active{opacity:.4}
 .backdrop::after{
   content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
   background:
@@ -82,24 +82,29 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
 
 /* ═══ FRAME (khung ảnh) ═══ */
 .photo-stage{
-  position:fixed;left:50%;top:calc(50% + 34px);transform:translate(-50%,-50%);
-  z-index:10;width:min(48vw,44vh);height:min(48vw,44vh);
-  max-width:452px;max-height:452px;pointer-events:none;
+  position:fixed;left:50%;top:calc(50% + 26px);transform:translate(-50%,-50%);
+  z-index:10;width:min(64vw,60vh);height:min(64vw,60vh);
+  max-width:620px;max-height:620px;pointer-events:none;
 }
 .photo-card{
-  position:absolute;inset:0;border-radius:10px;overflow:hidden;background:var(--paper);
-  border:3px solid var(--paper);
+  position:absolute;inset:0;border-radius:12px;overflow:hidden;background:var(--paper);
+  border:4px solid var(--paper);
   box-shadow:
-    0 0 0 2px rgba(29,100,52,.25),
-    0 0 0 8px rgba(255,255,255,.6),
-    0 24px 60px rgba(29,100,52,.22),
-    0 8px 24px rgba(0,0,0,.14);
-  opacity:0;transform:scale(.94) translateY(12px);
-  transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);
+    0 0 0 2px rgba(29,100,52,.22),
+    0 0 0 10px rgba(255,255,255,.55),
+    0 30px 70px rgba(29,100,52,.24),
+    0 12px 30px rgba(0,0,0,.16);
+  opacity:0;transform:scale(.9);
+  transition:opacity 1.4s cubic-bezier(.4,0,.2,1), transform 1.4s cubic-bezier(.4,0,.2,1);
 }
-.photo-card.active{opacity:1;transform:scale(1) translateY(0)}
-.photo-card.exit{opacity:0;transform:scale(1.04) translateY(-8px);transition:opacity .8s ease, transform .8s ease}
-.photo-card img{width:100%;height:100%;object-fit:contain;background:#fff;display:block}
+.photo-card.active{opacity:1;transform:scale(1)}
+.photo-card.exit{opacity:0;transform:scale(1.06);transition:opacity 1.4s cubic-bezier(.4,0,.2,1), transform 1.4s cubic-bezier(.4,0,.2,1)}
+/* Hiệu ứng Ken Burns: ảnh zoom nhẹ trong lúc hiển thị */
+.photo-card img{
+  width:100%;height:100%;object-fit:contain;background:#fff;display:block;
+  transform:scale(1);transition:transform 6.5s ease-out;
+}
+.photo-card.active img{transform:scale(1.06)}
 
 /* ═══ BADGE tên lớp ═══ */
 .photo-badge{
@@ -157,7 +162,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
   .hdr-logo{height:88px}
   .hdr-title{font-size:22px}
   .hdr-motto{font-size:18px;padding:4px 18px}
-  .photo-stage{width:min(76vw,50vh);height:min(76vw,50vh);top:calc(50% - 6px)}
+  .photo-stage{width:min(84vw,54vh);height:min(84vw,54vh);top:calc(50% - 4px)}
   .cd-grid{gap:6px}
   .cd-unit{min-width:62px;padding:10px 8px 8px;border-radius:12px}
   .cd-num{font-size:34px}
@@ -199,10 +204,6 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
 <div class="photo-stage">
   <div class="photo-card" id="card0"><img id="img0" alt=""></div>
   <div class="photo-card" id="card1"><img id="img1" alt=""></div>
-  <div class="photo-badge" id="photoBadge">
-    <div class="pb-lbl">Lớp</div>
-    <div class="pb-name" id="pbName">12/1</div>
-  </div>
 </div>
 
 <div class="countdown-zone">
@@ -221,7 +222,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
 
 <script>
 const IMAGE_BASE     = 'images/';
-const SLIDE_DURATION = 5500;
+const SLIDE_DURATION = 6500;
 const TARGET         = new Date('2026-07-18T06:30:00+07:00');
 const FALLBACK_IMG   = 'logo.png';
 
@@ -266,9 +267,35 @@ function loadManifest() {
     PHOTOS = [{ url: FALLBACK_IMG, lop: 'Quốc Học Huế' }];
   } else {
     console.log('✅ Đã nạp ' + list.length + ' ảnh (' + Object.keys(IMAGE_DATA).length + ' lớp)');
-    PHOTOS = shuffle(list);
+    PHOTOS = interleaveByClass(list);
   }
   start();
+}
+
+// Trộn ngẫu nhiên nhưng RẢI ĐỀU các lớp — tránh xem nhiều ảnh cùng lớp liên tiếp
+// (vì có lớp 80 ảnh, lớp chỉ 4 ảnh; shuffle thuần sẽ dồn cục)
+function interleaveByClass(list) {
+  // Gom ảnh theo lớp, shuffle nội bộ từng lớp
+  const buckets = {};
+  list.forEach(item => {
+    (buckets[item.lop] = buckets[item.lop] || []).push(item);
+  });
+  Object.keys(buckets).forEach(lop => buckets[lop] = shuffle(buckets[lop]));
+
+  // Rải vòng: mỗi vòng lấy 1 ảnh từ mỗi lớp (theo thứ tự lớp ngẫu nhiên)
+  const result = [];
+  const lops = Object.keys(buckets);
+  let remaining = list.length;
+  while (remaining > 0) {
+    const order = shuffle(lops.slice());  // mỗi vòng đảo thứ tự lớp
+    order.forEach(lop => {
+      if (buckets[lop].length) {
+        result.push(buckets[lop].shift());
+        remaining--;
+      }
+    });
+  }
+  return result;
 }
 
 function buildUrl(relPath) {
@@ -307,8 +334,6 @@ function showPhoto(i, first) {
   const oldBd = document.getElementById('bd'+flip);
   imgEl.src = photo.url;
   bd.style.backgroundImage = "url('" + photo.url + "')";
-  const badge = document.getElementById('photoBadge');
-  badge.classList.remove('show');
   const apply = () => {
     bd.classList.add('active');
     if (oldBd && oldBd !== bd) oldBd.classList.remove('active');
@@ -318,7 +343,6 @@ function showPhoto(i, first) {
       setTimeout(() => oldCard.classList.remove('exit'), 900);
     }
     card.classList.add('active');
-    setTimeout(() => { document.getElementById('pbName').textContent = photo.lop; badge.classList.add('show'); }, 450);
     flip = nf;
   };
   if (imgEl.complete && imgEl.naturalWidth) apply();
