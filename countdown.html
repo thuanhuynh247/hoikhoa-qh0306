@@ -5,126 +5,167 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hội Khóa QH 2003–2006 · Hẹn Nhau Ngày Về</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;0,900;1,600;1,700&family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --gold:#D4A843; --gold2:#F0C96A; --gold3:#F7E3A8;
-  --red:#8B1A1A; --cream:#FAF0DC; --dark:#0A0603;
+  /* Hệ màu chính thức từ logo hội khóa */
+  --green:#1D6434;      /* xanh lá đậm - chủ đạo */
+  --green-d:#144827;    /* xanh đậm hơn */
+  --green-l:#2E8049;    /* xanh sáng */
+  --red:#BF1B2C;        /* đỏ - màu nhấn */
+  --red-d:#9A1523;
+  --red-l:#D83848;
+  --cream:#FBF6EC;      /* nền kem sáng */
+  --cream2:#F3EAD6;
+  --paper:#FFFFFF;
+  --ink:#1A2E20;        /* chữ đậm trên nền sáng */
+  --ink2:#4A5D50;
+  --gold:#C9A84C;       /* điểm nhấn vàng nhẹ (accent phụ) */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;overflow:hidden}
-body{font-family:'Be Vietnam Pro',sans-serif;background:var(--dark);color:var(--cream)}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(--ink)}
 
-/* ═══ BACKDROP (nền mờ full màn hình) ═══ */
-.backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--dark)}
+/* ═══ BACKDROP ═══ */
+.backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--cream)}
 .bd-layer{
   position:absolute;inset:-40px;
   background-size:cover;background-position:center;
-  filter:blur(38px) brightness(.42) saturate(1.15);
+  filter:blur(42px) brightness(.9) saturate(1.1);
   opacity:0;transform:scale(1.15);
   transition:opacity 1.6s ease-in-out;
 }
-.bd-layer.active{opacity:1}
+.bd-layer.active{opacity:.35}
 .backdrop::after{
   content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
   background:
-    radial-gradient(ellipse 85% 75% at 50% 42%,rgba(10,6,3,.25) 0%,rgba(10,6,3,.62) 62%,rgba(10,6,3,.9) 100%),
-    linear-gradient(180deg,rgba(10,6,3,.82) 0%,rgba(10,6,3,.35) 22%,rgba(10,6,3,.32) 55%,rgba(10,6,3,.68) 82%,rgba(10,6,3,.95) 100%);
+    radial-gradient(ellipse 90% 80% at 50% 42%,rgba(251,246,236,.55) 0%,rgba(251,246,236,.78) 60%,rgba(251,246,236,.95) 100%),
+    linear-gradient(180deg,rgba(251,246,236,.9) 0%,rgba(251,246,236,.5) 22%,rgba(251,246,236,.45) 55%,rgba(251,246,236,.72) 82%,rgba(251,246,236,.98) 100%);
 }
+/* Hoa văn chấm bi mờ (gợi từ logo) */
 .backdrop::before{
-  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(circle, rgba(29,100,52,.05) 1px, transparent 1.5px);
+  background-size:28px 28px;
 }
 
-/* ═══ FRAME (khung ảnh nét ở giữa, KHÔNG crop) ═══ */
+/* ═══ VIỀN TRANG TRÍ khung ═══ */
+.frame-deco{position:fixed;inset:14px;z-index:4;pointer-events:none;border:1.5px solid rgba(29,100,52,.14);border-radius:12px}
+.frame-deco::before{content:'';position:absolute;inset:5px;border:1px solid rgba(191,27,44,.1);border-radius:8px}
+
+/* ═══ HEADER ═══ */
+.header{position:fixed;top:0;left:0;right:0;z-index:30;padding:22px 32px 0;text-align:center}
+.hdr-logo{
+  height:118px;width:auto;margin:0 auto 4px;display:block;
+  filter:drop-shadow(0 6px 18px rgba(29,100,52,.18));
+}
+.hdr-logo-fallback{
+  width:64px;height:64px;border-radius:50%;margin:0 auto 10px;
+  border:2.5px solid var(--green);background:var(--paper);
+  display:none;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:900;color:var(--red);
+  box-shadow:0 6px 20px rgba(29,100,52,.2);
+}
+.hdr-title{
+  font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:900;
+  color:var(--green);letter-spacing:.3px;line-height:1.1;
+  text-shadow:0 1px 2px rgba(255,255,255,.6);
+}
+.hdr-sub{font-size:11px;font-weight:600;color:var(--ink2);margin-top:5px;letter-spacing:1.5px}
+.hdr-motto{
+  display:inline-block;margin-top:11px;padding:5px 24px;
+  border-radius:24px;background:var(--red);
+  font-family:'Dancing Script',cursive;font-size:22px;font-weight:700;
+  color:#fff;letter-spacing:.5px;line-height:1;
+  box-shadow:0 4px 14px rgba(191,27,44,.28);
+}
+
+/* ═══ FRAME (khung ảnh) ═══ */
 .photo-stage{
-  position:fixed;left:50%;top:calc(50% + 26px);transform:translate(-50%,-50%);
-  z-index:10;
-  width:min(48vw, 46vh);height:min(48vw, 46vh);
-  max-width:460px;max-height:460px;
-  pointer-events:none;
+  position:fixed;left:50%;top:calc(50% + 34px);transform:translate(-50%,-50%);
+  z-index:10;width:min(48vw,44vh);height:min(48vw,44vh);
+  max-width:452px;max-height:452px;pointer-events:none;
 }
 .photo-card{
-  position:absolute;inset:0;
-  border-radius:8px;overflow:hidden;background:#150d05;
-  border:1px solid rgba(212,168,67,.25);
+  position:absolute;inset:0;border-radius:10px;overflow:hidden;background:var(--paper);
+  border:3px solid var(--paper);
   box-shadow:
-    0 0 0 6px rgba(250,240,220,.06),
-    0 30px 80px rgba(0,0,0,.6),
-    0 10px 30px rgba(0,0,0,.5),
-    inset 0 1px 0 rgba(255,255,255,.08);
+    0 0 0 2px rgba(29,100,52,.25),
+    0 0 0 8px rgba(255,255,255,.6),
+    0 24px 60px rgba(29,100,52,.22),
+    0 8px 24px rgba(0,0,0,.14);
   opacity:0;transform:scale(.94) translateY(12px);
   transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.3,1);
 }
 .photo-card.active{opacity:1;transform:scale(1) translateY(0)}
 .photo-card.exit{opacity:0;transform:scale(1.04) translateY(-8px);transition:opacity .8s ease, transform .8s ease}
-.photo-card img{width:100%;height:100%;object-fit:contain;background:#0f0a05;display:block}
-.photo-card::after{content:'';position:absolute;inset:0;border-radius:8px;pointer-events:none;box-shadow:inset 0 0 40px rgba(0,0,0,.4)}
+.photo-card img{width:100%;height:100%;object-fit:contain;background:#fff;display:block}
 
-/* ═══ CLASS BADGE ═══ */
+/* ═══ BADGE tên lớp ═══ */
 .photo-badge{
   position:absolute;left:50%;bottom:-16px;transform:translateX(-50%) translateY(8px);
-  z-index:12;
-  background:linear-gradient(135deg,var(--red),#A52020);
-  border:1px solid rgba(212,168,67,.5);border-radius:24px;padding:7px 22px;
-  box-shadow:0 8px 24px rgba(0,0,0,.5);
+  z-index:12;background:var(--green);
+  border:2px solid var(--paper);border-radius:24px;padding:7px 24px;
+  box-shadow:0 8px 22px rgba(29,100,52,.32);
   opacity:0;transition:opacity .8s ease .2s, transform .8s ease .2s;white-space:nowrap;
 }
 .photo-badge.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.photo-badge .pb-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);opacity:.85}
-.photo-badge .pb-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:900;color:#fff;line-height:1;margin-top:1px}
-
-/* ═══ HEADER ═══ */
-.header{position:fixed;top:0;left:0;right:0;z-index:30;padding:16px 32px 0;text-align:center}
-.hdr-emblem{width:48px;height:48px;border-radius:50%;margin:0 auto 9px;border:2px solid rgba(212,168,67,.5);background:rgba(212,168,67,.08);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1)}
-.hdr-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:900;color:var(--cream);letter-spacing:.5px;line-height:1.1;text-shadow:0 2px 24px rgba(0,0,0,.6)}
-.hdr-sub{font-size:11px;font-weight:500;color:rgba(250,240,220,.62);margin-top:5px;letter-spacing:1px}
-.hdr-motto{display:inline-block;margin-top:10px;padding:4px 18px;border:1px solid rgba(212,168,67,.35);border-radius:22px;background:rgba(10,6,3,.4);backdrop-filter:blur(8px);font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;font-weight:600;color:var(--gold2);letter-spacing:1px}
+.photo-badge .pb-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.photo-badge .pb-name{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:900;color:#fff;line-height:1;margin-top:1px}
 
 /* ═══ COUNTDOWN ═══ */
-.countdown-zone{position:fixed;left:50%;bottom:52px;transform:translateX(-50%);z-index:25;text-align:center;width:100%;padding:0 20px}
-.cd-eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.85;margin-bottom:14px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.cd-grid{display:flex;align-items:stretch;justify-content:center;gap:10px}
-.cd-unit{position:relative;background:rgba(10,6,3,.6);backdrop-filter:blur(14px);border:1.5px solid rgba(212,168,67,.3);border-radius:16px;padding:14px 20px 10px;min-width:92px;box-shadow:0 8px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden}
-.cd-unit::before{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,rgba(212,168,67,.6),transparent)}
-.cd-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:900;color:var(--gold2);line-height:1;letter-spacing:-1px;text-shadow:0 2px 20px rgba(212,168,67,.3);font-variant-numeric:tabular-nums}
-.cd-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(250,240,220,.6);margin-top:8px}
-.cd-colon{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:900;color:var(--gold);align-self:center;margin-bottom:16px;opacity:.55;animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:.55}50%{opacity:.18}}
-.cd-event{margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--cream);letter-spacing:.5px;text-shadow:0 2px 16px rgba(0,0,0,.5)}
-.cd-event strong{color:var(--gold2)}
+.countdown-zone{position:fixed;left:50%;bottom:54px;transform:translateX(-50%);z-index:25;text-align:center;width:100%;padding:0 20px}
+.cd-eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:4px;text-transform:uppercase;
+  color:var(--red);opacity:.9;margin-bottom:14px;
+}
+.cd-grid{display:flex;align-items:stretch;justify-content:center;gap:11px}
+.cd-unit{
+  position:relative;background:var(--paper);
+  border:2px solid rgba(29,100,52,.15);border-radius:16px;
+  padding:14px 22px 10px;min-width:96px;
+  box-shadow:0 8px 28px rgba(29,100,52,.12);overflow:hidden;
+}
+.cd-unit::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--green-l))}
+.cd-unit:nth-child(3)::before{background:linear-gradient(90deg,var(--red),var(--red-l))}
+.cd-unit:nth-child(5)::before{background:linear-gradient(90deg,var(--green),var(--green-l))}
+.cd-unit:nth-child(7)::before{background:linear-gradient(90deg,var(--red),var(--red-l))}
+.cd-num{
+  font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:900;
+  color:var(--green);line-height:1;letter-spacing:-1px;font-variant-numeric:tabular-nums;
+}
+.cd-unit:nth-child(3) .cd-num,.cd-unit:nth-child(7) .cd-num{color:var(--red)}
+.cd-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--ink2);margin-top:8px}
+.cd-colon{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:900;color:var(--green);align-self:center;margin-bottom:16px;opacity:.4;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.4}50%{opacity:.12}}
+.cd-event{margin-top:16px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--green);letter-spacing:.3px}
+.cd-event strong{color:var(--red)}
 
 /* ═══ PROGRESS + COUNTER ═══ */
-.slide-progress{position:fixed;top:0;left:0;height:3px;z-index:35;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0;box-shadow:0 0 10px rgba(212,168,67,.6)}
-.img-counter{position:fixed;top:18px;right:22px;z-index:30;font-size:11px;font-weight:600;color:rgba(250,240,220,.5);background:rgba(10,6,3,.5);backdrop-filter:blur(8px);padding:5px 12px;border-radius:14px;border:1px solid rgba(212,168,67,.15);font-variant-numeric:tabular-nums}
-
-/* ═══ CORNERS ═══ */
-.corner{position:fixed;width:66px;height:66px;z-index:15;pointer-events:none;opacity:.35}
-.corner svg{width:100%;height:100%;stroke:var(--gold);stroke-width:1.5;fill:none}
-.corner.tl{top:12px;left:12px}
-.corner.bl{bottom:12px;left:12px;transform:scaleY(-1)}
-.corner.br{bottom:12px;right:12px;transform:scale(-1)}
+.slide-progress{position:fixed;top:0;left:0;height:3px;z-index:35;background:linear-gradient(90deg,var(--green),var(--red));width:0}
+.img-counter{position:fixed;top:18px;right:22px;z-index:30;font-size:11px;font-weight:700;color:var(--green);background:var(--paper);padding:5px 13px;border-radius:14px;border:1.5px solid rgba(29,100,52,.15);box-shadow:0 2px 8px rgba(29,100,52,.1);font-variant-numeric:tabular-nums}
 
 /* ═══ LOADING ═══ */
-#loading{position:fixed;inset:0;z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--dark)}
-.spin{width:44px;height:44px;border-radius:50%;border:2px solid rgba(212,168,67,.18);border-top-color:var(--gold);animation:spin .8s linear infinite;margin-bottom:16px}
-.load-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:.5px}
-.load-sub{font-size:11px;color:rgba(250,240,220,.4);margin-top:6px}
+#loading{position:fixed;inset:0;z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--cream)}
+.spin{width:46px;height:46px;border-radius:50%;border:3px solid rgba(29,100,52,.15);border-top-color:var(--green);animation:spin .8s linear infinite;margin-bottom:16px}
+.load-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:900;color:var(--green);letter-spacing:.3px}
+.load-sub{font-size:11px;color:var(--ink2);margin-top:6px;font-weight:600}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes floatIn{from{opacity:0;transform:scale(.62) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 
 @media(max-width:680px){
-  .hdr-title{font-size:21px}
-  .hdr-emblem{width:40px;height:40px;font-size:18px}
-  .photo-stage{width:min(74vw,52vh);height:min(74vw,52vh);top:calc(50% - 8px)}
+  .hdr-logo{height:88px}
+  .hdr-title{font-size:22px}
+  .hdr-motto{font-size:18px;padding:4px 18px}
+  .photo-stage{width:min(76vw,50vh);height:min(76vw,50vh);top:calc(50% - 6px)}
   .cd-grid{gap:6px}
-  .cd-unit{min-width:60px;padding:10px 7px 8px;border-radius:12px}
-  .cd-num{font-size:32px}
+  .cd-unit{min-width:62px;padding:10px 8px 8px;border-radius:12px}
+  .cd-num{font-size:34px}
   .cd-colon{font-size:24px;margin-bottom:12px}
   .cd-lbl{font-size:8px;letter-spacing:1px}
-  .cd-event{font-size:13px}
-  .photo-badge .pb-name{font-size:18px}
-  .corner{width:40px;height:40px}
-  .countdown-zone{bottom:32px}
+  .cd-event{font-size:14px}
+  .photo-badge .pb-name{font-size:19px}
+  .frame-deco{inset:8px}
 }
 </style>
 </head>
@@ -143,17 +184,16 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--dark);color:var(--
   <div class="bd-layer" id="bd1"></div>
 </div>
 
-<div class="corner tl"><svg viewBox="0 0 66 66"><path d="M2 33 Q2 2 33 2 M2 21 Q2 2 21 2"/><circle cx="7" cy="7" r="2"/></svg></div>
-<div class="corner bl"><svg viewBox="0 0 66 66"><path d="M2 33 Q2 2 33 2 M2 21 Q2 2 21 2"/><circle cx="7" cy="7" r="2"/></svg></div>
-<div class="corner br"><svg viewBox="0 0 66 66"><path d="M2 33 Q2 2 33 2 M2 21 Q2 2 21 2"/><circle cx="7" cy="7" r="2"/></svg></div>
-
+<div class="frame-deco"></div>
 <div class="img-counter" id="imgCounter">0 / 0</div>
 
 <div class="header">
-  <div class="hdr-emblem">🎓</div>
+  <img src="logo.png" alt="Logo Hội Khóa" class="hdr-logo"
+       onerror="this.style.display='none';document.getElementById('logoFb').style.display='flex'">
+  <div class="hdr-logo-fallback" id="logoFb">20</div>
   <div class="hdr-title">Hội Khóa Quốc Học 2003–2006</div>
   <div class="hdr-sub">THPT CHUYÊN QUỐC HỌC HUẾ · NIÊN KHÓA 2003–2006</div>
-  <div class="hdr-motto">"Hẹn nhau ngày về"</div>
+  <div class="hdr-motto">Hẹn nhau ngày về</div>
 </div>
 
 <div class="photo-stage">
@@ -166,7 +206,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--dark);color:var(--
 </div>
 
 <div class="countdown-zone">
-  <div class="cd-eyebrow">⏳ Đếm ngược đến ngày hội ngộ</div>
+  <div class="cd-eyebrow">✦ Đếm ngược đến ngày hội ngộ</div>
   <div class="cd-grid">
     <div class="cd-unit"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl">Ngày</div></div>
     <div class="cd-colon">:</div>
@@ -180,66 +220,59 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--dark);color:var(--
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════
-//  CẤU HÌNH
-// ══════════════════════════════════════════════════════
 const IMAGE_BASE     = 'images/';
-const MANIFEST_URL   = 'images.json';
 const SLIDE_DURATION = 5500;
 const TARGET         = new Date('2026-07-18T06:30:00+07:00');
-const FALLBACK_IMG   = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg/1280px-Tr%C6%B0%E1%BB%9Dng_Qu%E1%BB%91c_H%E1%BB%8Dc_Hu%E1%BA%BF.jpg';
+const FALLBACK_IMG   = 'logo.png';
+
+const IMAGE_DATA = {
+  "12 Văn Pháp": ["z7926922349512_8c7cbcf92db438c377599dc225f987f4.jpg","z7926922349619_ee0cb3bab1c723d3dbede6adea177c28.jpg","z7926922349620_e5b4af54cc396d78938c6b9831fd2409.jpg","z7926922349621_647965692621cd26c93bebdd81f88232.jpg"],
+  "12 Hóa": ["P2050782.JPG","P2050802.JPG","P2050804.JPG","P2071031.JPG","P2071032.JPG","P2071033.JPG","P2071036.JPG","P2071042.JPG","P2071043.JPG","P2081054.JPG","Untitled-Scanned-122.jpg","Untitled-Scanned-152.jpg","Untitled-Scanned-16.jpg","Untitled-Scanned-162.jpg","Untitled-Scanned-19.jpg","Untitled-Scanned-262.jpg","Untitled-Scanned-44.jpg","Untitled-Scanned-48.jpg","hoa036002 copy.jpg","z6855474494304_314b2c8a55c42b52607263fc1b92efb7.jpg","z6855490038032_9d8c7e2b8a1914df8e0a92472636f58c.jpg","z6857896233520_be838ac8f7ae59c837df3831ef5c3de1.jpg","z6861124841328_cb034782dc28466c63e8dcec86a2cefc.jpg","z6861128041773_44155f93261a66ca5a6126de0717c5db.jpg","z6861128707163_0563be06176f849a6fbe5bc50b3a33b9.jpg","z6861130187074_3ab70d6768a41a53d7db1c7482be8ce4.jpg","z6861138334616_4501bc25f83b15ccb4d09995c8b57ac4.jpg","z6861140759970_9be4f952182921e96966ac1e5a4c74a0.jpg","z6862672088778_3bb300539c266af430bce20f021cc325.jpg","z6866674958043_f87b17718873cdddc380de5754363e0d.jpg"],
+  "12 Toán": ["12 toan.jpg","z7967812197065_50110883ea8640f2f49e6719942bdd3e.jpg","z7967816505545_5e2bde0dc4799f70e32b3073cdc82009.jpg","z7967818163780_3c9e7bc446bfeeaf9a56b4ed572d9a54.jpg","z7967818756866_7dbea006c397f8e7995b1728a3431292.jpg"],
+  "12 Lý Sinh": ["LS01.jpg","LS02.jpg","LS03.jpg","LS04.jpg","LS05.jpg"],
+  "12 Anh": ["518109404_10166240168580620_7375610707781082940_n.jpg","518243236_10166240168515620_5950827084765172466_n.jpg","518245335_10166240168425620_229575746306902707_n.jpg","518363629_10166240168605620_5163750744454559625_n.jpg","520122190_10166240168485620_7264263772940089466_n.jpg","701419896_1289568950037157_9075064846782890023_n.jpg","702989214_1545918373535466_5302616848289741138_n.jpg","703775197_1552483376422845_3055569966439330136_n.jpg","APP0005.JPG","APP0007.JPG","DSC01337.JPG","DSC01815.JPG","DSC01835.JPG","DSC01869.JPG","DSC02673.JPG","DSC03548.JPG","DSC03553.JPG","DSC03556.JPG","DSC03697.JPG","DSC03843.JPG","DSC03916.JPG","DSC03917.JPG","DSC04151.JPG","DSC04169.JPG","DSC04183.JPG","DSC04186.JPG","DSC04835.JPG","DSC04836.JPG","DSCF3811.JPG","IMG_0080.JPG"],
+  "12/10": ["z7923858498419_cedb9cdae85443f2bade753a77f0f58c.jpg","z7923858502727_04583fdada3564d972d16cf5c319a476.jpg","z7923858509825_62be30312f3345333abcfe99991e746d.jpg","z7923858510037_1be7e6138405d106056672d5888f4d32.jpg","z7923858510210_1ddc301dfa07266a3030ec52cf5ed621.jpg","z7923858513082_8d299e294674603534c619922d06b461.jpg","z7923858516303_dc9a17883b01402b6d4f92e95d0b11c9.jpg","z7923858524413_ff79fc065aa81cfbc9e1306e61976d44.jpg","z7923858568600_cbe46d08293324d3c143c34e60906603.jpg","z7923858572642_9958121f16e1e545089f112cec6dfe62.jpg","z7923858573129_7d35d4c98b31ac17c40283a71eb2f63d.jpg"],
+  "12/9": ["z7923642355879_57cc85ea1be8e6d4522194a8d1eeff06.jpg","z7923642525815_5c7a19ea0a58f31e0a1d2a23df3f4b11.jpg","z7923643496894_eb208b1fe98abc9b49dd3cb9eda96bc3.jpg","z7923643878001_08686bad2c45aa121e54cfd88d790c29.jpg","z7923644164663_dc5cb6b5a2656fe4553c5e91650b14de.jpg","z7923644164998_ebc8c0d2f4258672d60056be13f48ba7.jpg","z7923644183582_82a212f98ee9c88ae559eb525b6881c9.jpg"],
+  "12/8": ["1JRCNRJS7_345510.jpg","1JRCNRJSQ_345510.jpg","1JRCNRJTO_345510.jpg","1JRCNRJUM_345510.jpg","1JRCNRJVI_345510.jpg","1JRCNRK0I_345510.jpg","1JRCNRK3B_345510.jpg","1JRCNRK48_345510.jpg","1JRCNRK55_345510.jpg","1JRCNRK61_345510.jpg","1JRCNRK7S_345510.jpg","1JRCNRK8O_345510.jpg","1JRCNRK9N_345510.jpg","1JRCNRKAH_345510.jpg","IMG_6095.PNG","IMG_6096.PNG","IMG_6097.PNG","IMG_6106.JPG","IMG_6107.JPG","IMG_6108.JPG","IMG_6109.JPG","IMG_6110.JPG","IMG_6111.JPG","IMG_6112.JPG","IMG_6113.JPG","IMG_6114.JPG","IMG_6115.JPG","IMG_6116.JPG","IMG_6117.JPG","IMG_6118.JPG","IMG_6119.JPG","IMG_6120.JPG","IMG_6121.JPG","IMG_6122.JPG","IMG_6123.JPG","IMG_6124.JPG","IMG_6125.JPG","IMG_6126.JPG","IMG_6127.JPG","IMG_6128.JPG","IMG_6129.JPG","IMG_6130.JPG","IMG_6131.JPG","IMG_6132.JPG","IMG_6133.JPG","IMG_6134.JPG","IMG_6135.JPG","IMG_6136.JPG","IMG_6137.JPG","IMG_6138.JPG","IMG_6139.JPG","IMG_6140.JPG","IMG_6141.JPG","IMG_6142.JPG","IMG_6143.JPG","IMG_6144.JPG","IMG_6145.JPG","IMG_6146.JPG","IMG_6147.JPG","IMG_6148.JPG","IMG_6149.JPG","IMG_6150.JPG","IMG_6151.JPG","IMG_6152.JPG","IMG_6153.JPG","IMG_6154.JPG","IMG_6155.JPG","IMG_6156.JPG","IMG_6157.JPG","IMG_6158.JPG","IMG_6159.JPG","IMG_6160.JPG","IMG_6161.JPG","IMG_6162.JPG","IMG_6163.JPG","IMG_6164.JPG","IMG_6166.JPG","IMG_6167.JPG","IMG_6184.JPG","IMG_6185.JPG"],
+  "12/7": ["127 (100).jpg","127 (101).jpg","127 (103).jpg","127 (104).jpg","127 (105).jpg","127 (106).jpg","127 (108).jpg","127 (110).jpg","127 (114).jpg","127 (117).jpg","127 (12).jpg","127 (133).jpg","127 (134).png","127 (135).jpg","127 (136).jpg","127 (141).jpg","127 (150).jpg","127 (167).jpg","127 (194).jpg","127 (205).jpg","127 (206).jpg","127 (207).jpg","127 (211).jpg","127 (212).jpg","127 (229).jpg","127 (235).jpg","127 (236).jpg","127 (267).jpg","127 (271).jpg","127 (30).jpg","127 (31).jpg","127 (36).jpg","127 (4).jpg","127 (40).jpg","127 (48).jpg","127 (5).jpg","127 (51).jpg","127 (52).jpg","127 (53).jpg","127 (56).jpg","127 (57).jpg","127 (58).jpg","127 (61).jpg","127 (62).jpg","127 (65).jpg","127 (67).jpg","127 (73).jpg","127 (78).jpg","127 (79).jpg","127 (80).jpg","127 (81).jpg","127 (82).jpg","127 (83).jpg","127 (84).jpg","127 (85).jpg","127 (86).jpg","127 (9).jpg","127 (92).jpg","127 (93).jpg","127 (94).jpg","127 (96).jpg","127 (97).jpg","127 (98).jpg","127 (99).jpg"],
+  "12/6": ["z7925188220791_a0bf3618ec0a4eca339c4977cde9ade1.jpg","z7925188224469_bfdf93c768d1662c6bedfe4c5ccda3ef.jpg","z7925188239644_8d1032277a409991427f8099233a2e8c.jpg","z7925188239846_cf3bd6c7b33a8eed079e162c6c9752c0.jpg","z7925188256415_6193b1d7c45374cc0c3cb7ab32cee9f3.jpg","z7925188261848_ff5361c56f4520f89929b84d562e0aaa.jpg","z7925188269831_365f9509d8fa80d9573f96670104647c.jpg","z7925188273531_d8e9f77a1b829f4f654edd5e2d4231f2.jpg","z7925188273786_c65cd058ce80ceded0ab808930382f79.jpg","z7925188290566_7383996eca12d02b41bad685b812d664.jpg","z7925188297837_77a30fb8b797cc034fea438a33d137a1.jpg","z7925188302774_12e9db9d17e63ab50e300f7155bec957.jpg","z7925188308311_f70907ac979a3f2173d8de2a28bd1361.jpg","z7925188317598_1b947a61a41d026cc9dc83dc08ca9a70.jpg","z7925188320863_98a4b0e7f518db93e93f1818e7df6499.jpg","z7925188332190_ccdb92f81600da64a706604f54f80734.jpg","z7925188335366_02bd3c671df9256b352560adc92110ab.jpg","z7925188345570_09c7d9f209226688cbef7a5640f3f538.jpg"]
+};
+
+const LOP_SLUG = {
+  "12/1":"12-1","12/2":"12-2","12/3":"12-3","12/4":"12-4","12/5":"12-5",
+  "12/6":"12-6","12/7":"12-7","12/8":"12-8","12/9":"12-9","12/10":"12-10",
+  "12 Toán":"12-toan","12 Lý Sinh":"12-ly-sinh","12 Hóa":"12-hoa",
+  "12 Anh":"12-anh","12 Văn Pháp":"12-van-phap"
+};
 
 let PHOTOS = [], idx = 0, flip = 0, timer = null;
 
-// ══ LOAD MANIFEST ══
-// images.json 2 dạng chấp nhận:
-//   Dạng A: { "12/2": ["a.jpg","b.jpg"], "12 Toán": ["x.jpg"] }
-//   Dạng B: [ {"lop":"12/2","file":"12-2/a.jpg"}, ... ]
-async function loadManifest() {
-  try {
-    const res = await fetch(MANIFEST_URL + '?t=' + Date.now());
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    const list = [];
-
-    const seen = new Set();               // chống trùng file
-    const BAD_EXT = /\.(bmp)$/i;           // trình duyệt không hiển thị BMP
-
-    const pushImg = (folder, file, lop) => {
-      if (!file) return;
-      if (BAD_EXT.test(file)) return;      // bỏ file BMP
-      const rawPath = file.includes('/') ? file : folder + '/' + file;
-      const dedupeKey = lop + '||' + rawPath;
-      if (seen.has(dedupeKey)) return;     // bỏ file trùng
-      seen.add(dedupeKey);
-      list.push({ url: buildUrl(rawPath), lop });
-    };
-
-    if (Array.isArray(data)) {
-      data.forEach(it => { if (it.file && it.lop) pushImg(lopToFolder(it.lop), it.file, it.lop); });
-    } else {
-      Object.keys(data).forEach(lop => {
-        const folder = lopToFolder(lop);
-        (data[lop] || []).forEach(file => pushImg(folder, file, lop));
-      });
-    }
-    if (!list.length) throw new Error('Manifest rỗng');
-    console.log('✅ Đã nạp ' + list.length + ' ảnh từ images.json');
-    PHOTOS = shuffle(list);
-    start();
-  } catch (e) {
-    console.error('❌ Lỗi đọc images.json:', e.message);
-    console.error('   Kiểm tra: file images.json đã lên GitHub chưa? Đúng cú pháp JSON chưa?');
+function loadManifest() {
+  const list = [];
+  const BAD_EXT = /\.(bmp)$/i;
+  const seen = new Set();
+  Object.keys(IMAGE_DATA).forEach(lop => {
+    const folder = LOP_SLUG[lop] || lopToFolder(lop);
+    (IMAGE_DATA[lop] || []).forEach(file => {
+      if (!file || BAD_EXT.test(file)) return;
+      const key = lop + '||' + file;
+      if (seen.has(key)) return;
+      seen.add(key);
+      list.push({ url: buildUrl(folder + '/' + file), lop });
+    });
+  });
+  if (!list.length) {
+    console.error('IMAGE_DATA rỗng → dùng logo dự phòng');
     PHOTOS = [{ url: FALLBACK_IMG, lop: 'Quốc Học Huế' }];
-    start();
+  } else {
+    console.log('✅ Đã nạp ' + list.length + ' ảnh (' + Object.keys(IMAGE_DATA).length + ' lớp)');
+    PHOTOS = shuffle(list);
   }
+  start();
 }
 
-// Ghép URL an toàn: mã hóa từng đoạn (khoảng trắng, ngoặc, dấu tiếng Việt)
-// nhưng GIỮ dấu "/" để không phá cấu trúc thư mục
 function buildUrl(relPath) {
-  const encoded = relPath.split('/').map(seg => encodeURIComponent(seg)).join('/');
-  return IMAGE_BASE + encoded;
+  return IMAGE_BASE + relPath.split('/').map(s => encodeURIComponent(s)).join('/');
 }
 
 function lopToFolder(lop) {
@@ -254,7 +287,6 @@ function lopToFolder(lop) {
 
 function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-// ══ START ══
 function start() {
   document.getElementById('imgCounter').textContent = '1 / ' + PHOTOS.length;
   preload(PHOTOS[0].url, () => {
@@ -265,7 +297,6 @@ function start() {
 }
 function preload(url, cb){ const im=new Image(); im.onload=cb; im.onerror=cb; im.src=url; }
 
-// ══ SHOW PHOTO (double buffer) ══
 function showPhoto(i, first) {
   const photo = PHOTOS[i];
   const nf = first ? 0 : (flip ^ 1);
@@ -274,13 +305,10 @@ function showPhoto(i, first) {
   const bd = document.getElementById('bd'+nf);
   const oldCard = document.getElementById('card'+flip);
   const oldBd = document.getElementById('bd'+flip);
-
   imgEl.src = photo.url;
-  bd.style.backgroundImage = `url('${photo.url}')`;
-
+  bd.style.backgroundImage = "url('" + photo.url + "')";
   const badge = document.getElementById('photoBadge');
   badge.classList.remove('show');
-
   const apply = () => {
     bd.classList.add('active');
     if (oldBd && oldBd !== bd) oldBd.classList.remove('active');
@@ -290,39 +318,27 @@ function showPhoto(i, first) {
       setTimeout(() => oldCard.classList.remove('exit'), 900);
     }
     card.classList.add('active');
-    setTimeout(() => {
-      document.getElementById('pbName').textContent = photo.lop;
-      badge.classList.add('show');
-    }, 450);
+    setTimeout(() => { document.getElementById('pbName').textContent = photo.lop; badge.classList.add('show'); }, 450);
     flip = nf;
   };
-
   if (imgEl.complete && imgEl.naturalWidth) apply();
   else { imgEl.onload = apply; imgEl.onerror = apply; }
-
   document.getElementById('imgCounter').textContent = (i+1) + ' / ' + PHOTOS.length;
   runProgress();
-
-  const nextIdx = (i+1) % PHOTOS.length;
-  preload(PHOTOS[nextIdx].url, () => {});
+  preload(PHOTOS[(i+1) % PHOTOS.length].url, () => {});
 }
 
 function scheduleNext() {
   clearTimeout(timer);
-  timer = setTimeout(() => {
-    idx = (idx + 1) % PHOTOS.length;
-    showPhoto(idx, false);
-    scheduleNext();
-  }, SLIDE_DURATION);
+  timer = setTimeout(() => { idx = (idx + 1) % PHOTOS.length; showPhoto(idx, false); scheduleNext(); }, SLIDE_DURATION);
 }
 
 function runProgress() {
   const p = document.getElementById('slideProgress');
   p.style.transition = 'none'; p.style.width = '0';
-  requestAnimationFrame(() => { p.style.transition = `width ${SLIDE_DURATION}ms linear`; p.style.width = '100%'; });
+  requestAnimationFrame(() => { p.style.transition = 'width ' + SLIDE_DURATION + 'ms linear'; p.style.width = '100%'; });
 }
 
-// ══ COUNTDOWN ══
 function pad(n){ return String(n).padStart(2,'0'); }
 function tick() {
   let diff = TARGET - new Date();
