@@ -82,9 +82,9 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
 
 /* ═══ FRAME (khung ảnh) ═══ */
 .photo-stage{
-  position:fixed;left:50%;top:calc(50% + 26px);transform:translate(-50%,-50%);
-  z-index:10;width:min(64vw,60vh);height:min(64vw,60vh);
-  max-width:620px;max-height:620px;pointer-events:none;
+  position:fixed;left:50%;top:calc(50% + 8px);transform:translate(-50%,-50%);
+  z-index:10;width:min(58vw,52vh);height:min(58vw,52vh);
+  max-width:560px;max-height:560px;pointer-events:none;
 }
 .photo-card{
   position:absolute;inset:0;border-radius:12px;overflow:hidden;background:var(--paper);
@@ -121,8 +121,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
 /* ═══ COUNTDOWN ═══ */
 .countdown-zone{position:fixed;left:50%;bottom:54px;transform:translateX(-50%);z-index:25;text-align:center;width:100%;padding:0 20px}
 .cd-eyebrow{
+  display:inline-block;
   font-size:10px;font-weight:800;letter-spacing:4px;text-transform:uppercase;
-  color:var(--red);opacity:.9;margin-bottom:14px;
+  color:var(--red);margin-bottom:16px;
+  background:rgba(251,246,236,.82);backdrop-filter:blur(6px);
+  padding:6px 18px;border-radius:16px;
 }
 .cd-grid{display:flex;align-items:stretch;justify-content:center;gap:11px}
 .cd-unit{
@@ -162,7 +165,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
   .hdr-logo{height:88px}
   .hdr-title{font-size:22px}
   .hdr-motto{font-size:18px;padding:4px 18px}
-  .photo-stage{width:min(84vw,54vh);height:min(84vw,54vh);top:calc(50% - 4px)}
+  .photo-stage{width:min(80vw,50vh);height:min(80vw,50vh);top:calc(50% - 10px)}
   .cd-grid{gap:6px}
   .cd-unit{min-width:62px;padding:10px 8px 8px;border-radius:12px}
   .cd-num{font-size:34px}
@@ -198,7 +201,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--cream);color:var(-
   <div class="hdr-logo-fallback" id="logoFb">20</div>
   <div class="hdr-title">Hội Khóa Quốc Học 2003–2006</div>
   <div class="hdr-sub">THPT CHUYÊN QUỐC HỌC HUẾ · NIÊN KHÓA 2003–2006</div>
-  <div class="hdr-motto">Hẹn nhau ngày về</div>
+  <div class="hdr-motto">Hẹn nhau ngày về · 18.07.2026</div>
 </div>
 
 <div class="photo-stage">
